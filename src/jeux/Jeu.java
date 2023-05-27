@@ -8,9 +8,12 @@ public class Jeu {
 	private int nbrResultats;
 	private int champResultat;
 	private int[] resultats;
+	
+	public static int nbrJeuxCrees;
 
 	public Jeu() {
-		this("jeu de des", 3, 6);
+		this("jeu", 3, 6);
+		this.nom = this.nom + "_" + nbrJeuxCrees;
 		resultats = new int[nbrResultats];
 	}
 
@@ -29,6 +32,7 @@ public class Jeu {
 	}
 
 	public Jeu(String nom, int nbrResultats, int champResultat) {
+		nbrJeuxCrees++;
 		this.nom = nom;
 		this.nbrResultats = nbrResultats;
 		this.champResultat = champResultat;
