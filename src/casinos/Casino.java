@@ -32,17 +32,26 @@ public class Casino {
 		// a DISCUTER!!! :
 
 		// SOLUTION 1 :
-//		nbrCasinosCrees++;
-//		this.nom = autre.nom;
-//		this.maxJoueurs = autre.maxJoueurs;
-//		joueursPresents = 0;
-//		joueurs = new Joueur[autre.maxJoueurs];
-//		this.jeu = new Jeu(autre.jeu);
-
-		// SOLUTION 2 :
-		this(autre.nom, autre.maxJoueurs);
+		this.nom = autre.nom;
+		this.maxJoueurs = autre.maxJoueurs;
+		this.joueursPresents = autre.joueursPresents;
+		this.joueurs = new Joueur[autre.maxJoueurs];
 		this.jeu = new Jeu(autre.jeu);
-		Jeu.nbrJeuxCrees--;
+
+		for (int i = 0; i < joueursPresents; i++) {
+			this.joueurs[i] = new Joueur(autre.joueurs[i]);
+		}
+		nbrCasinosCrees++;
+		
+		// SOLUTION 2 :
+//		this(autre.nom, autre.maxJoueurs);
+//		this.joueursPresents = autre.joueursPresents;
+//		this.jeu = new Jeu(autre.jeu);
+//		
+//		for(int i = 0 ; i < joueursPresents; i++) {
+//			this.joueurs[i] = new Joueur(autre.joueurs[i]);
+//		}
+//		Jeu.nbrJeuxCrees--;
 	}
 
 	public Casino(String nom, int maxJoueurs) {
@@ -53,7 +62,7 @@ public class Casino {
 		joueurs = new Joueur[maxJoueurs];
 		this.jeu = new Jeu();
 	}
-	
+
 	public Casino(String nomJeu, int nbrResultatsJeu, int champResultatJeu) {
 		this();
 		this.jeu = new Jeu(nomJeu, nbrResultatsJeu, champResultatJeu);
@@ -64,6 +73,20 @@ public class Casino {
 		this(nom, maxJoueurs);
 		this.jeu = new Jeu(nomJeu, nbrResultatsJeu, champResultatJeu);
 		Jeu.nbrJeuxCrees--;
+	}
+
+	public boolean ajouterJoueur(Joueur nouveauJoueur) {
+
+		if (joueursPresents < maxJoueurs) {
+			joueurs[joueursPresents] = nouveauJoueur;
+			joueursPresents++;
+			System.out.printf(
+					"Le joueur \"%s\" a rejoins le casino \"%s\". Il y a maintenant %d joueur(s) dans cette salle.\n",
+					nouveauJoueur.getNom(), nom, joueursPresents);
+			return true;
+		} else
+			System.out.println("Ce casino est complet.\n");
+		return false;
 	}
 
 	public String getNom() {
@@ -92,6 +115,7 @@ public class Casino {
 
 		chaine = String.format("Le casino s'apelle \"%s\". Il a une capacite maximale de %d joueurs. ", nom,
 				maxJoueurs);
+		chaine += String.format("Presentement, ce casino propose ce jeu:\n \"%s\"\n", jeu);
 
 		if (joueursPresents > 0) {
 			chaine += String.format("\nIl a presentement %d joueur(s) dans cette salle. ", joueursPresents);
@@ -106,11 +130,21 @@ public class Casino {
 	}
 
 	public boolean equals(Casino autre) {
+		if (!this.nom.equals(autre.nom)) {
+			return false;
+		}
 		if (this.maxJoueurs != autre.maxJoueurs) {
+			return false;
+		}
+		if (this.joueursPresents != autre.joueursPresents) {
 			return false;
 		}
 		if (!this.jeu.equals(autre.jeu)) {
 			return false;
+		}
+		for (int i = 0; i < joueursPresents; i++) {
+			if(this.joueurs[i] != autre.joueurs[i])
+				return false;
 		}
 		return true;
 	}
