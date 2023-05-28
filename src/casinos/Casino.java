@@ -28,16 +28,21 @@ public class Casino {
 	}
 
 	public Casino(Casino autre) {
-		nbrCasinosCrees++;
-		this.nom = autre.nom;
-		this.maxJoueurs = autre.maxJoueurs;
-		joueursPresents = 0;
-		joueurs = new Joueur[autre.maxJoueurs];
-		this.jeu = new Jeu(autre.jeu);
-		
-		// Avant (a discuter):
-//		this(autre.nom, autre.maxJoueurs);
+
+		// a DISCUTER!!! :
+
+		// SOLUTION 1 :
+//		nbrCasinosCrees++;
+//		this.nom = autre.nom;
+//		this.maxJoueurs = autre.maxJoueurs;
+//		joueursPresents = 0;
+//		joueurs = new Joueur[autre.maxJoueurs];
 //		this.jeu = new Jeu(autre.jeu);
+
+		// SOLUTION 2 :
+		this(autre.nom, autre.maxJoueurs);
+		this.jeu = new Jeu(autre.jeu);
+		Jeu.nbrJeuxCrees--;
 	}
 
 	public Casino(String nom, int maxJoueurs) {
@@ -47,6 +52,18 @@ public class Casino {
 		joueursPresents = 0;
 		joueurs = new Joueur[maxJoueurs];
 		this.jeu = new Jeu();
+	}
+	
+	public Casino(String nomJeu, int nbrResultatsJeu, int champResultatJeu) {
+		this();
+		this.jeu = new Jeu(nomJeu, nbrResultatsJeu, champResultatJeu);
+		Jeu.nbrJeuxCrees--;
+	}
+
+	public Casino(String nom, int maxJoueurs, String nomJeu, int nbrResultatsJeu, int champResultatJeu) {
+		this(nom, maxJoueurs);
+		this.jeu = new Jeu(nomJeu, nbrResultatsJeu, champResultatJeu);
+		Jeu.nbrJeuxCrees--;
 	}
 
 	public String getNom() {
@@ -70,11 +87,12 @@ public class Casino {
 	}
 
 	public String toString() {
-		
+
 		String chaine;
-		
-		chaine = String.format("Le casino s'apelle \"%s\". Il a une capacite maximale de %d joueurs. ", nom, maxJoueurs);
-		
+
+		chaine = String.format("Le casino s'apelle \"%s\". Il a une capacite maximale de %d joueurs. ", nom,
+				maxJoueurs);
+
 		if (joueursPresents > 0) {
 			chaine += String.format("\nIl a presentement %d joueur(s) dans cette salle. ", joueursPresents);
 			chaine += "\nLes voici: ";
