@@ -35,6 +35,17 @@ public class Joueur {
 		nbrJoueursCrees++;
 	}
 
+	public void joindreCasino(Casino casino) {
+		if (this.casino != casino) {
+			if (capital > 0 && casino.ajouterJoueur(this)) {
+				this.casino = casino;
+			} else
+				System.out.printf("Acces refuse: %s n'a pas d'argent...\n", nom);
+		} else
+			System.out.printf("Vous etes deja dans ce casino...\n", nom);
+
+	}
+
 	public String getNom() {
 		return nom;
 	}
