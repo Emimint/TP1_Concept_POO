@@ -76,7 +76,6 @@ public class Casino {
 	}
 
 	public boolean ajouterJoueur(Joueur nouveauJoueur) {
-
 		if (joueursPresents < maxJoueurs) {
 			joueurs[joueursPresents] = nouveauJoueur;
 			joueursPresents++;
@@ -88,6 +87,49 @@ public class Casino {
 			System.out.println("Ce casino est complet.\n");
 		return false;
 	}
+	
+	public void enleverJoueur(Joueur joueur) {
+		this.shiftTab(this.rechercherIndice(joueur));
+		joueursPresents--;
+		System.out.printf(
+				"Le joueur \"%s\" a quitte le casino \"%s\". Il y a maintenant %d joueur(s) dans cette salle.\n",
+				joueur.getNom(), nom, joueursPresents);
+	}
+	
+    /**
+     * Permet de trouver un Joueur dans une liste de Joueur. 
+     *
+     * @param aTrouver Joueur dont l'existence est deja confirme
+     * @return int l'indice auquel l'item a été trouvé
+     * dans le tableau. Si l'item n'est pas trouvé, la fonction
+     * retourne -1
+     */
+    public int rechercherIndice(Joueur aTrouver) {
+
+        boolean trouve = false;
+        int counter = 0;
+
+        while (!trouve && (counter < joueursPresents)) {
+            if (joueurs[counter] == aTrouver) {
+                return counter;
+            } else counter++;
+        }
+        return --counter;
+    }
+	
+    /**
+     * Permet de reassigner successivement, dans un tableau de Joueurs,
+     * la reference d'une case avec la valeur de la case suivante.
+     *
+     * @param tableau Joueur[] dont on veut shifter les valeurs
+     * @param indice  int de l'indice de la case visée
+     */
+    public void shiftTab(int indice) {
+    	joueurs[indice] = null;
+        for (int i = indice + 1; i < joueursPresents; i++) {
+        	joueurs[i - 1] = joueurs[i];
+        }
+    }
 
 	public String getNom() {
 		return nom;
