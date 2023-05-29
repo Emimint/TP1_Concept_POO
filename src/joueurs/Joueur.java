@@ -37,22 +37,20 @@ public class Joueur {
 
 	public void joindreCasino(Casino casino) {
 		if (this.casino != casino) {
-			if (capital > 0) {
+			if (aDesSous()) {
 				if (casino.ajouterJoueur(this)) {
 					this.casino = casino;
 				}
-			} else
-				System.out.printf("Acces refuse: %s n'a pas d'argent...\n", nom);
+			}
 		} else
 			System.out.printf("Vous etes deja dans ce casino...\n", nom);
 	}
 
 	public void quitterCasino() {
-		if (this.casino != null) {
+		if (aUnCasino()) {
 			casino.enleverJoueur(this);
 			this.casino = null;
-		} else
-			System.out.printf("Vous n'etes dans aucun casino...\n", nom);
+		}
 	}
 
 	public String getNom() {
@@ -62,6 +60,25 @@ public class Joueur {
 	public void setNom(String nom) {
 		this.nom = nom;
 	}
+	
+	public boolean aUnCasino() {
+		if (this.casino != null) {
+			return true;
+		} else {
+			System.out.printf("Vous n'etes dans aucun casino...\n", nom);
+			return false;
+		}
+	}
+	
+	public boolean aDesSous() {
+		if (capital > 0) {
+			return true;
+		} else {
+			System.out.printf("%s n'a pas d'argent...\n", nom);
+			return false;
+		}
+	}
+	
 
 	public int getCapital() {
 		return capital;
