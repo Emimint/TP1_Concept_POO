@@ -183,25 +183,35 @@ public class TestCasino {
 		
 		joueur1.joindreCasino(casino1);
 		joueur1.joindreCasino(casino1);
-		System.out.println("-------------------------");
+		System.out.println("-----------1-------------");
 		joueur5.setNom("Momo");
 		joueur5.setCapital(0);
 		joueur5.joindreCasino(casino1);
-		System.out.println("-------------------------");
+		System.out.println("-----------2-------------");
 		joueur4.joindreCasino(casino1);
 		joueur2.joindreCasino(casino1);
 		joueur3.joindreCasino(casino1);
-		System.out.println("-------------------------");
+		System.out.println("-----------3-------------");
 		System.out.println(casino1);
-		System.out.println("-------------------------");
+		System.out.println("-----------4-------------");
 		joueur5.quitterCasino();
-		System.out.println("-------------------------");
+		System.out.println("-----------5-------------");
 		System.out.println(joueur1.getCasino());
 		joueur1.quitterCasino();
 		System.out.println(joueur1);
 		System.out.println(joueur1.getCasino());
-		System.out.println("-------------------------");
+		System.out.println("-----------6-------------");
 		System.out.println(casino1);
+		joueur4.joindreCasino(casino2);
+		System.out.println(casino1);
+		System.out.println(casino2);
+		System.out.println("-----------7-------------");
+		joueur5.setCapital(1000);
+		System.out.println();
+		joueur5.joindreCasino(casino1);
+		joueur5.joindreCasino(casino2);
+		System.out.println(casino1);
+		System.out.println(casino2);
 
 		
 		/**********************************************
@@ -212,7 +222,31 @@ public class TestCasino {
 		System.out.println("************ Tests pour methode jouer() ***********");
 		System.out.println("*********************************************");
 		
+		joueur1.jouer(150);
+		joueur5.setCapital(1000);
+		joueur5.jouer(150);
+		System.out.println(joueur4);
+		joueur4.getCasino().faireUnTirage();
+		joueur4.jouer(150);
+		System.out.println(joueur4.getCapital());
 		
+		System.out.println("------------1------------");
+		joueur1.joindreCasino(casino2);
+		System.out.println("------------2------------");
+		joueur2.joindreCasino(casino2);
+		System.out.println("------------3------------");
+		joueur3.joindreCasino(casino2);
+		System.out.println("------------4------------");
+		joueur4.joindreCasino(casino2);
+		System.out.println("------------5------------");
+		joueur5.joindreCasino(casino2);
+		System.out.println("------------6------------");
+		System.out.println(casino1);
+		casino1.jouer(150);
+		System.out.println();
+		System.out.println("------------7------------");
+		System.out.println(casino2);
+		casino2.jouer(150);
 	}
 	
 	
