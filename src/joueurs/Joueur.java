@@ -36,14 +36,19 @@ public class Joueur {
 	}
 
 	public void joindreCasino(Casino casino) {
-		if (this.casino != casino) {
-			if (aDesSous()) {
+		if (aDesSous()) {
+			if (this.casino != casino) {
 				if (casino.ajouterJoueur(this)) {
+					if (this.casino != null) {
+						this.quitterCasino();	
+					}
 					this.casino = casino;
 				}
+			}else {
+				System.out.printf("%s est deja dans ce casino...\n", nom);
 			}
-		} else
-			System.out.printf("Vous etes deja dans ce casino...\n", nom);
+
+		}
 	}
 
 	public void quitterCasino() {
@@ -53,23 +58,24 @@ public class Joueur {
 		}
 	}
 
-	public String getNom() {
-		return nom;
-	}
-	
-	public void setNom(String nom) {
-		this.nom = nom;
-	}
-	
 	public boolean aUnCasino() {
 		if (this.casino != null) {
 			return true;
 		} else {
-			System.out.printf("Vous n'etes dans aucun casino...\n", nom);
+			System.out.printf("%s n'est dans aucun casino...\n", nom);
 			return false;
 		}
 	}
-	
+
+	public boolean aUnCasino(Casino autre) {
+		if (this.casino != autre) {
+			return true;
+		} else {
+			System.out.printf("Vous n'etes pas dans le casino \"%s\"...\n", autre.getNom());
+			return false;
+		}
+	}
+
 	public boolean aDesSous() {
 		if (capital > 0) {
 			return true;
@@ -79,12 +85,28 @@ public class Joueur {
 		}
 	}
 	
+	public boolean aDesSous( int montant) {
+		if (capital >= montant) {
+			return true;
+		} else {
+			System.out.printf("%s n'a pas assez d'argent...\n", nom);
+			return false;
+		}
+	}
+
 	public void jouer(int mise) {
-		if(aDesSous() && aUnCasino()) {
+		if (aDesSous(mise) && aUnCasino()) {
 			casino.jouer(this, mise);
 		}
 	}
-	
+
+	public String getNom() {
+		return nom;
+	}
+
+	public void setNom(String nom) {
+		this.nom = nom;
+	}
 
 	public int getCapital() {
 		return capital;
