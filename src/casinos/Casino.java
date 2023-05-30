@@ -151,7 +151,6 @@ public class Casino {
 	 * @param indice  int de l'indice de la case visée
 	 */
 	public void shiftTab(int indice) {
-		joueurs[indice] = null;
 		for (int i = indice + 1; i < joueursPresents; i++) {
 			joueurs[i - 1] = joueurs[i];
 		}

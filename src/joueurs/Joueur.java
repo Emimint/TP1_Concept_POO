@@ -71,7 +71,7 @@ public class Joueur {
 		if (this.casino != autre) {
 			return true;
 		} else {
-			System.out.printf("Vous n'etes pas dans le casino \"%s\"...\n", autre.getNom());
+			System.out.printf("Vous etes dans le casino \"%s\"...\n", autre.getNom());
 			return false;
 		}
 	}
