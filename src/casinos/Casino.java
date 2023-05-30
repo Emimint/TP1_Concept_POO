@@ -42,7 +42,7 @@ public class Casino {
 			this.joueurs[i] = new Joueur(autre.joueurs[i]);
 		}
 		nbrCasinosCrees++;
-		
+
 		// SOLUTION 2 :
 //		this(autre.nom, autre.maxJoueurs);
 //		this.joueursPresents = autre.joueursPresents;
@@ -87,7 +87,7 @@ public class Casino {
 			System.out.println("Ce casino est complet.\n");
 		return false;
 	}
-	
+
 	public void enleverJoueur(Joueur joueur) {
 		this.shiftTab(this.rechercherIndice(joueur));
 		joueursPresents--;
@@ -95,19 +95,25 @@ public class Casino {
 				"Le joueur \"%s\" a quitte le casino \"%s\". Il y a maintenant %d joueur(s) dans cette salle.\n",
 				joueur.getNom(), nom, joueursPresents);
 	}
-	
+
 	public void faireUnTirage() {
 		jeu.faireUnTirage();
 	}
-	
+
 	public void jouer(Joueur joueur, int mise) {
-		int capital = joueur.getCapital();
-		capital += jeu.calculerGains(mise) - mise;
+		if (joueur.getCasino().equals(this)) {
+			if (joueur.aDesSous(mise)) {
+				int gains = 0;
+				gains = joueur.getCapital() + jeu.calculerGains(mise) - mise;
+				joueur.setCapital(gains);
+				System.out.printf("%s a maintenant %d$.\n", joueur.getNom(), joueur.getCapital());
+			}
+		} else
+			System.out.printf("Ce joueur (\"%s\") n'appartient pas a ce casino.\n", joueur.getNom());
 	}
-	
+
 	/*
-	 * fait jouer tous les joueurs presents
-	 * pour une mise donnee
+	 * fait jouer tous les joueurs presents pour une mise donnee
 	 */
 	public void jouer(int mise) {
 		faireUnTirage();
@@ -115,41 +121,41 @@ public class Casino {
 			jouer(joueurs[i], mise);
 		}
 	}
-	
-    /**
-     * Permet de trouver un Joueur dans une liste de Joueur. 
-     *
-     * @param aTrouver Joueur dont l'existence est deja confirme
-     * @return int l'indice auquel l'item a été trouvé
-     * dans le tableau. Si l'item n'est pas trouvé, la fonction
-     * retourne -1
-     */
-    public int rechercherIndice(Joueur aTrouver) {
 
-        boolean trouve = false;
-        int counter = 0;
+	/**
+	 * Permet de trouver un Joueur dans une liste de Joueur.
+	 *
+	 * @param aTrouver Joueur dont l'existence est deja confirme
+	 * @return int l'indice auquel l'item a été trouvé dans le tableau. Si l'item
+	 *         n'est pas trouvé, la fonction retourne -1
+	 */
+	public int rechercherIndice(Joueur aTrouver) {
 
-        while (!trouve && (counter < joueursPresents)) {
-            if (joueurs[counter] == aTrouver) {
-                return counter;
-            } else counter++;
-        }
-        return --counter;
-    }
-	
-    /**
-     * Permet de reassigner successivement, dans un tableau de Joueurs,
-     * la reference d'une case avec la valeur de la case suivante.
-     *
-     * @param tableau Joueur[] dont on veut shifter les valeurs
-     * @param indice  int de l'indice de la case visée
-     */
-    public void shiftTab(int indice) {
-    	joueurs[indice] = null;
-        for (int i = indice + 1; i < joueursPresents; i++) {
-        	joueurs[i - 1] = joueurs[i];
-        }
-    }
+		boolean trouve = false;
+		int counter = 0;
+
+		while (!trouve && (counter < joueursPresents)) {
+			if (joueurs[counter] == aTrouver) {
+				return counter;
+			} else
+				counter++;
+		}
+		return --counter;
+	}
+
+	/**
+	 * Permet de reassigner successivement, dans un tableau de Joueurs, la reference
+	 * d'une case avec la valeur de la case suivante.
+	 *
+	 * @param tableau Joueur[] dont on veut shifter les valeurs
+	 * @param indice  int de l'indice de la case visée
+	 */
+	public void shiftTab(int indice) {
+		joueurs[indice] = null;
+		for (int i = indice + 1; i < joueursPresents; i++) {
+			joueurs[i - 1] = joueurs[i];
+		}
+	}
 
 	public String getNom() {
 		return nom;
@@ -205,7 +211,7 @@ public class Casino {
 			return false;
 		}
 		for (int i = 0; i < joueursPresents; i++) {
-			if(this.joueurs[i] != autre.joueurs[i])
+			if (this.joueurs[i] != autre.joueurs[i])
 				return false;
 		}
 		return true;
