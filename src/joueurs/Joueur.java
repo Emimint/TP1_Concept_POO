@@ -79,6 +79,12 @@ public class Joueur {
 		}
 	}
 	
+	public void jouer(int mise) {
+		if(aDesSous() && aUnCasino()) {
+			casino.jouer(this, mise);
+		}
+	}
+	
 
 	public int getCapital() {
 		return capital;

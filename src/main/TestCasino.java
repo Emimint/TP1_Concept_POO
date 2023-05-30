@@ -203,6 +203,19 @@ public class TestCasino {
 		System.out.println("-------------------------");
 		System.out.println(casino1);
 
+		
+		/**********************************************
+		 ** Tests pour methodes jouer() ***
+		 *********************************************/
+		
+		System.out.println("/**********************************************");
+		System.out.println("************ Tests pour methode jouer() ***********");
+		System.out.println("*********************************************");
+		
+		
 	}
+	
+	
+	
 
 }

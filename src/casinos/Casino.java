@@ -96,6 +96,26 @@ public class Casino {
 				joueur.getNom(), nom, joueursPresents);
 	}
 	
+	public void faireUnTirage() {
+		jeu.faireUnTirage();
+	}
+	
+	public void jouer(Joueur joueur, int mise) {
+		int capital = joueur.getCapital();
+		capital += jeu.calculerGains(mise) - mise;
+	}
+	
+	/*
+	 * fait jouer tous les joueurs presents
+	 * pour une mise donnee
+	 */
+	public void jouer(int mise) {
+		faireUnTirage();
+		for (int i = 0; i < joueursPresents; i++) {
+			jouer(joueurs[i], mise);
+		}
+	}
+	
     /**
      * Permet de trouver un Joueur dans une liste de Joueur. 
      *
