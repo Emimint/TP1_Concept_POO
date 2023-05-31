@@ -210,7 +210,7 @@ public class Casino {
 			return false;
 		}
 		for (int i = 0; i < joueursPresents; i++) {
-			if (this.joueurs[i] != autre.joueurs[i])
+			if (!this.joueurs[i].equals(autre.joueurs[i]))
 				return false;
 		}
 		return true;
