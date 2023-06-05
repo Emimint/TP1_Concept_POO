@@ -34,23 +34,15 @@ public class Casino {
 		// SOLUTION 1 :
 		this.nom = autre.nom;
 		this.maxJoueurs = autre.maxJoueurs;
-		this.joueursPresents = autre.joueursPresents;
 		this.joueurs = new Joueur[autre.maxJoueurs];
 		this.jeu = new Jeu(autre.jeu);
 
-		for (int i = 0; i < joueursPresents; i++) {
-			this.joueurs[i] = new Joueur(autre.joueurs[i]);
-		}
 		nbrCasinosCrees++;
 
 		// SOLUTION 2 :
 //		this(autre.nom, autre.maxJoueurs);
-//		this.joueursPresents = autre.joueursPresents;
 //		this.jeu = new Jeu(autre.jeu);
 //		
-//		for(int i = 0 ; i < joueursPresents; i++) {
-//			this.joueurs[i] = new Joueur(autre.joueurs[i]);
-//		}
 //		Jeu.nbrJeuxCrees--;
 	}
 
@@ -135,7 +127,7 @@ public class Casino {
 		int counter = 0;
 
 		while (!trouve && (counter < joueursPresents)) {
-			if (joueurs[counter] == aTrouver) {
+			if (joueurs[counter].equals(aTrouver)) {
 				return counter;
 			} else
 				counter++;
