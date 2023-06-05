@@ -24,11 +24,6 @@ public class Jeu {
 
 	public Jeu(Jeu autre) {
 		this(autre.nom, autre.nbrResultats, autre.champResultat);
-		this.resultats = new int[autre.nbrResultats];
-
-		for (int i = 0; i < nbrResultats; i++) {
-			this.resultats[i] = autre.resultats[i];
-		}
 	}
 
 	public Jeu(String nom, int nbrResultats, int champResultat) {
@@ -201,11 +196,6 @@ public class Jeu {
 		}
 		if (this.champResultat != autre.champResultat) {
 			return false;
-		}
-
-		for (int i = 0; i < nbrResultats; i++) {
-			if(this.resultats[i] != autre.resultats[i])
-				return false;
 		}
 		return true;
 	}
