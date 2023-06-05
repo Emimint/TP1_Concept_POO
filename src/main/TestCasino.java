@@ -11,9 +11,9 @@ public class TestCasino {
 		/**********************************************
 		 ************ Tests pour classe Jeu ***********
 		 *********************************************/
-		System.out.println("/**********************************************");
-		System.out.println("************ Tests pour classe Jeu ***********");
-		System.out.println("*********************************************");
+		System.out.println("\n*********************************************");
+		System.out.println("************ Tests pour classe Jeu **********");
+		System.out.println("*********************************************\n");
 
 		System.out.printf("Il y a %d jeux crees.\n", Jeu.nbrJeuxCrees);
 
@@ -51,30 +51,42 @@ public class TestCasino {
 
 		System.out.println("4e cas: " + jeu1.equals(jeu3));
 
+		System.out.println("5e cas: " + jeu1.equals(jeu5));
+		
+		System.out.println("6e cas: " + jeu1.equals(jeu4));
+
 		System.out.println("------------------- 3 --------------");
-		System.out.println("-------- methodes de classe --------");
+		System.out.println("-------- methodes de classe --------\n");
 
 		Jeu loto = jeu4;
 
-//		loto.faireUnTirage();
+		loto.faireUnTirage();
 
 		System.out.println(loto);
+		
+		System.out.println();
+
+		System.out.println("---------------------------------");
 
 		loto.calculerGains(50);
+		
+		System.out.println("---------------------------------");
 
 		loto.calculerGains(100);
 
-		loto.faireUnTirage();
+		System.out.println("---------------------------------");
 
+		loto.faireUnTirage();
+		
 		loto.calculerGains(100);
 
 		/**********************************************
 		 ********** Tests pour classe Casino **********
 		 *********************************************/
 
-		System.out.println("/**********************************************");
-		System.out.println("************ Tests pour classe Casino ***********");
-		System.out.println("*********************************************");
+		System.out.println("\n**********************************************");
+		System.out.println("************ Tests pour classe Casino ********");
+		System.out.println("**********************************************\n");
 
 		System.out.printf("Il y a %d casinos crees.\n", Casino.nbrCasinosCrees);
 
@@ -113,6 +125,9 @@ public class TestCasino {
 		System.out.println("-------- accesseurs --------");
 
 		System.out.println(casino1);
+		
+		System.out.println("-------------------------");
+		
 		System.out.printf("Le casino \"%s\" a une capacite de %d personnes. On y joue a ce jeu: %s.\n\n",
 				casino1.getNom(), casino1.getMaxJoueurs(), casino1.getNomJeu());
 		System.out.println("------------- 2 ------------");
@@ -130,9 +145,9 @@ public class TestCasino {
 		 ********** Tests pour classe Joueur **********
 		 *********************************************/
 
-		System.out.println("/**********************************************");
-		System.out.println("************ Tests pour classe Joueur ***********");
-		System.out.println("*********************************************");
+		System.out.println("\n**********************************************");
+		System.out.println("************ Tests pour classe Joueur ********");
+		System.out.println("**********************************************\n");
 
 		Joueur joueur1 = new Joueur();
 		System.out.println(joueur1);
@@ -153,9 +168,13 @@ public class TestCasino {
 		Joueur joueur5 = new Joueur(joueur1);
 		System.out.println(joueur5);
 		System.out.printf("Il y a %d joueurs crees.\n", Joueur.nbrJoueursCrees);
+		System.out.println("-------------------------");
+		Joueur joueur6 = new Joueur(joueur1);
+		System.out.println(joueur6);
+		System.out.printf("Il y a %d joueurs crees.\n", Joueur.nbrJoueursCrees);
 
-		System.out.println("------------- 2 ------------");
-		System.out.println("-------- accesseurs et equals --------");
+		System.out.println("--------------------- 2 ------------------");
+		System.out.println("-------- getters, setters, equals --------");
 
 		System.out.println("1er cas: " + joueur1.equals(joueur5));
 
@@ -166,14 +185,19 @@ public class TestCasino {
 		joueur5.setCapital(joueur1.getCapital());
 
 		System.out.println("3e cas: " + joueur1.equals(joueur5));
+		
+		joueur5.setNom("Dan");
+
+		System.out.println("4e cas: " + joueur1.equals(joueur1));
 
 		/**********************************************
 		 ** Tests pour methode Joueur.joindreCasino ***
 		 *********************************************/
 
-		System.out.println("/**********************************************");
-		System.out.println("************ Tests pour methode Joueur.joindreCasino ***********");
-		System.out.println("*********************************************");
+		System.out.println("\n**************************************************");
+		System.out.println("*** Tests pour methodes Joueur.joindreCasino() ***");
+		System.out.println("************** et Joueur.quitterCasino() *********");
+		System.out.println("**************************************************\n");
 
 //		Casino casino1 = new Casino();
 //		System.out.println(casino1);
@@ -182,6 +206,7 @@ public class TestCasino {
 		System.out.println(joueur1);
 		
 		joueur1.joindreCasino(casino1);
+		System.out.println("\n-------------------------");
 		joueur1.joindreCasino(casino1);
 		System.out.println("-----------1-------------");
 		joueur5.setNom("Momo");
@@ -197,20 +222,29 @@ public class TestCasino {
 		joueur5.quitterCasino();
 		System.out.println("-----------5-------------");
 		System.out.println(joueur1.getCasino());
+		System.out.println("\n-------------------------");
 		joueur1.quitterCasino();
+		System.out.println("\n-------------------------");
 		System.out.println(joueur1);
+		System.out.println("\n-------------------------");
 		System.out.println(joueur1.getCasino());
 		System.out.println("-----------6-------------");
 		System.out.println(casino1);
+		System.out.println("\n-------------------------");
 		joueur4.joindreCasino(casino2);
+		System.out.println("\n-------------------------");
 		System.out.println(casino1);
+		System.out.println("\n-------------------------");
 		System.out.println(casino2);
 		System.out.println("-----------7-------------");
 		joueur5.setCapital(1000);
 		System.out.println();
 		joueur5.joindreCasino(casino1);
+		System.out.println("\n-------------------------");
 		joueur5.joindreCasino(casino2);
+		System.out.println("\n-------------------------");
 		System.out.println(casino1);
+		System.out.println("\n-------------------------");
 		System.out.println(casino2);
 
 		
@@ -218,16 +252,21 @@ public class TestCasino {
 		 ** Tests pour methodes jouer() ***
 		 *********************************************/
 		
-		System.out.println("/**********************************************");
-		System.out.println("************ Tests pour methode jouer() ***********");
-		System.out.println("*********************************************");
+		System.out.println("\n*******************************************");
+		System.out.println("**** Tests pour methode jouer() ***********");
+		System.out.println("*******************************************\n");
 		
 		joueur1.jouer(150);
+		System.out.println("\n-------------------------");
 		joueur5.setCapital(1000);
+		joueur5.getCasino().faireUnTirage();
 		joueur5.jouer(150);
+		System.out.println("\n-------------------------");
 		System.out.println(joueur4);
+		System.out.println("\n-------------------------");
 		joueur4.getCasino().faireUnTirage();
 		joueur4.jouer(150);
+		System.out.println("\n-------------------------");
 		System.out.println(joueur4.getCapital());
 		
 		System.out.println("------------1------------");
@@ -239,14 +278,49 @@ public class TestCasino {
 		System.out.println("------------4------------");
 		joueur4.joindreCasino(casino2);
 		System.out.println("------------5------------");
-		joueur5.joindreCasino(casino2);
+		joueur6.joindreCasino(casino2);
 		System.out.println("------------6------------");
+		joueur5.joindreCasino(casino2);
+		System.out.println("------------7------------");
 		System.out.println(casino1);
+		System.out.println("\n-------------------------");
 		casino1.jouer(150);
 		System.out.println();
-		System.out.println("------------7------------");
+		System.out.println("------------8------------");
 		System.out.println(casino2);
+		System.out.println("\n-------------------------");
 		casino2.jouer(150);
+		
+		System.out.println("\n****************************************************");
+		System.out.println("******** Tests supplementaires pour methode ********");
+		System.out.println("************** Joueur.quitterCasino() **************");
+		System.out.println("****************************************************\n");
+		System.out.println("------------1------------");
+		joueur1.quitterCasino();
+		System.out.println("\n-------------------------");
+		System.out.println(casino2);
+		System.out.println("------------2------------");
+		joueur2.quitterCasino();
+		System.out.println("\n-------------------------");
+		System.out.println(casino2);
+		System.out.println("------------3------------");
+		joueur6.quitterCasino();
+		System.out.println("\n-------------------------");
+		System.out.println(casino2);
+		System.out.println("------------4------------");
+		joueur4.quitterCasino();
+		System.out.println("\n-------------------------");
+		joueur4.quitterCasino();
+		System.out.println("\n-------------------------");
+		System.out.println(casino2);
+		System.out.println("------------5------------");
+		joueur3.quitterCasino();
+		System.out.println("\n-------------------------");
+		System.out.println(casino2);
+		System.out.println("------------6------------");
+		joueur5.quitterCasino();
+		System.out.println("\n-------------------------");
+		System.out.println(casino2);
 	}
 	
 	
