@@ -110,6 +110,8 @@ public class Casino {
 	public void jouer(int mise) {
 		faireUnTirage();
 		for (int i = 0; i < joueursPresents; i++) {
+			System.out.printf("\n%d) %s joue:\n", i + 1, joueurs[i].getNom());
+			System.out.println("---------------");
 			jouer(joueurs[i], mise);
 		}
 	}
@@ -195,15 +197,8 @@ public class Casino {
 		if (this.maxJoueurs != autre.maxJoueurs) {
 			return false;
 		}
-		if (this.joueursPresents != autre.joueursPresents) {
-			return false;
-		}
 		if (!this.jeu.equals(autre.jeu)) {
 			return false;
-		}
-		for (int i = 0; i < joueursPresents; i++) {
-			if (!this.joueurs[i].equals(autre.joueurs[i]))
-				return false;
 		}
 		return true;
 	}
