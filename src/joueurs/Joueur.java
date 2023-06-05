@@ -7,6 +7,7 @@ public class Joueur {
 
 	private String nom;
 	private int capital;
+	private int joueurID;
 	private Casino casino;
 
 	public static int nbrJoueursCrees;
@@ -32,7 +33,7 @@ public class Joueur {
 	public Joueur(String nom, int capital) {
 		this.nom = nom;
 		this.capital = capital;
-		nbrJoueursCrees++;
+		this.joueurID = ++nbrJoueursCrees;
 	}
 
 	public void joindreCasino(Casino casino) {
@@ -139,6 +140,9 @@ public class Joueur {
 			return false;
 		}
 		if (this.capital != autre.capital) {
+			return false;
+		}
+		if (this.joueurID != autre.joueurID) {
 			return false;
 		}
 		return true;
