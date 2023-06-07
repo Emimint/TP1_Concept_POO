@@ -150,26 +150,6 @@ public class Casino {
 		}
 	}
 
-	public String getNom() {
-		return nom;
-	}
-
-	public void setNom(String nom) {
-		this.nom = nom;
-	}
-
-	public int getMaxJoueurs() {
-		return maxJoueurs;
-	}
-
-	public int getJoueursPresents() {
-		return joueursPresents;
-	}
-
-	public String getNomJeu() {
-		return jeu.getNom();
-	}
-
 	public String toString() {
 
 		String chaine;
@@ -201,5 +181,25 @@ public class Casino {
 			return false;
 		}
 		return true;
+	}
+
+	public String getNom() {
+		return nom;
+	}
+
+	public void setNom(String nom) {
+		this.nom = nom;
+	}
+
+	public int getMaxJoueurs() {
+		return maxJoueurs;
+	}
+
+	public int getJoueursPresents() {
+		return joueursPresents;
+	}
+
+	public String getNomJeu() {
+		return jeu.getNom();
 	}
 }
