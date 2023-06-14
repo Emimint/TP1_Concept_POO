@@ -5,21 +5,19 @@ public class Jeu {
 	private String nom;
 
 	// variables propres a un jeu de hasard:
-	private int nbrResultats;
-	private int champResultat;
-	private int[] resultats;
+	private int nbrResultats; 	// nombre de resultats attendus
+	private int champResultat;	// valeur limite maximale pour un des resultats
+	private int[] resultats; 	// tableau des resultats a remplir dans la classe Casino
 
 	public static int nbrJeuxCrees;
 
 	public Jeu() {
 		this("jeu", 3, 6);
 		this.nom = this.nom + "_" + nbrJeuxCrees;
-		resultats = new int[nbrResultats];
 	}
 
 	public Jeu(String nom) {
 		this(nom, 3, 6);
-		resultats = new int[nbrResultats];
 	}
 
 	public Jeu(Jeu autre) {
@@ -54,7 +52,7 @@ public class Jeu {
 	 */
 	public int calculerGains(int mise) {
 
-		int gains, gainsReels = 0;
+		int gains, gainsReels, numerosTrouves;
 		int[] resultatsJoueur = new int[nbrResultats];
 		double ratio = 0.5; // remise des gains
 
@@ -67,7 +65,7 @@ public class Jeu {
 		System.out.println("Resultats du joueur:");
 		afficherNumeros(resultatsJoueur);
 
-		int numerosTrouves = resultatTirage(resultatsJoueur, resultats);
+		numerosTrouves = resultatTirage(resultatsJoueur, resultats);
 
 		gains = (int) (numerosTrouves > 0 ? mise * numerosTrouves * ratio : 0);
 		gainsReels = gains - mise;
