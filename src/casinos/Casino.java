@@ -7,7 +7,6 @@ public class Casino {
 
 	private String nom;
 	private Joueur[] joueurs;
-	private int maxJoueurs;
 	private int joueursPresents;
 	private Jeu jeu;
 
@@ -25,15 +24,13 @@ public class Casino {
 	public Casino(Casino autre) {
 		nbrCasinosCrees++;
 		this.nom = autre.nom;
-		this.maxJoueurs = autre.maxJoueurs;
-		this.joueurs = new Joueur[autre.maxJoueurs];
+		this.joueurs = new Joueur[autre.joueurs.length];
 		this.jeu = new Jeu(autre.jeu);
 	}
 
 	public Casino(String nom, int maxJoueurs) {
 		nbrCasinosCrees++;
 		this.nom = nom;
-		this.maxJoueurs = maxJoueurs;
 		joueursPresents = 0;
 		joueurs = new Joueur[maxJoueurs];
 		this.jeu = new Jeu();
@@ -47,14 +44,13 @@ public class Casino {
 	public Casino(String nom, int maxJoueurs, String nomJeu, int nbrResultatsJeu, int champResultatJeu) {
 		nbrCasinosCrees++;
 		this.nom = nom;
-		this.maxJoueurs = maxJoueurs;
 		joueursPresents = 0;
 		joueurs = new Joueur[maxJoueurs];
 		this.jeu = new Jeu(nomJeu, nbrResultatsJeu, champResultatJeu);
 	}
 
 	public boolean ajouterJoueur(Joueur nouveauJoueur) {
-		if (joueursPresents < maxJoueurs) {
+		if (joueursPresents < joueurs.length) {
 			joueurs[joueursPresents] = nouveauJoueur;
 			joueursPresents++;
 			
@@ -149,7 +145,7 @@ public class Casino {
 		String chaine;
 
 		chaine = String.format("Le casino s'apelle \"%s\". Il a une capacite maximale de %d joueurs. ", nom,
-				maxJoueurs);
+				joueurs.length);
 		chaine += String.format("Presentement, ce casino propose ce jeu:\n \"%s\"\n", jeu);
 
 		if (joueursPresents > 0) {
@@ -168,7 +164,7 @@ public class Casino {
 		if (!this.nom.equalsIgnoreCase(autre.nom)) {
 			return false;
 		}
-		if (this.maxJoueurs != autre.maxJoueurs) {
+		if (this.joueurs.length != autre.joueurs.length) {
 			return false;
 		}
 		if (!this.jeu.equals(autre.jeu)) {
@@ -186,7 +182,7 @@ public class Casino {
 	}
 
 	public int getMaxJoueurs() {
-		return maxJoueurs;
+		return joueurs.length;
 	}
 
 	public int getJoueursPresents() {
