@@ -4,10 +4,10 @@ public class Jeu {
 
 	private String nom;
 
-	// variables propres a un jeu de hasard:
-	private int nbrResultats; 	// nombre de resultats attendus
-	private int champResultat;	// valeur limite maximale pour un des resultats
-	private int[] resultats; 	// tableau des resultats a remplir dans la classe Casino
+	// variables propres à un jeu de hasard:
+	private int nbrResultats; 	// nombre de résultats attendus
+	private int champResultat;	// valeur limite maximale pour un des résultats
+	private int[] resultats; 	// tableau des résultats à remplir dans la classe Casino
 
 	public static int nbrJeuxCrees;
 
@@ -33,11 +33,8 @@ public class Jeu {
 	}
 
 	/*
-	 * Fait un tirage; les resultats sont stocke dans le tableau des resultats.
-	 * C'est dans le casino qu'on appelle cette methode.
-	 * 
-	 * @params nbrResultats : nombre de resultats attendus champResultat: limite
-	 * maximale du resultat resultats: tableau des resultats a remplir
+	 * Fait un tirage; les résultats sont stockés dans le tableau des résultats.
+	 * C'est dans le casino qu'on appelle cette méthode.
 	 */
 	public void faireUnTirage() {
 		for (int i = 0; i < nbrResultats; i++) {
@@ -47,22 +44,22 @@ public class Jeu {
 	}
 
 	/*
-	 * prend la mise d'un joueur lance une phase de jeu et retourne les gains du
-	 * joueur
+	 * prend la mise d'un joueur et retourne 
+	 * ses gains
 	 */
 	public int calculerGains(int mise) {
 
 		int gains, gainsReels, numerosTrouves;
 		int[] resultatsJoueur = new int[nbrResultats];
-		double ratio = 0.5; // remise des gains
+		double ratio = 0.5; // remise sur les gains
 
-		System.out.printf("Vous avez mise %d$.\n", mise);
-		System.out.println("Resultats du tirage:");
+		System.out.printf("Vous avez misé %d$.\n", mise);
+		System.out.println("Résultats du tirage:");
 		afficherNumeros(resultats);
 
 		resultatJoueur(resultatsJoueur);
 
-		System.out.println("Resultats du joueur:");
+		System.out.println("Résultats du joueur:");
 		afficherNumeros(resultatsJoueur);
 
 		numerosTrouves = resultatTirage(resultatsJoueur, resultats);
@@ -70,7 +67,7 @@ public class Jeu {
 		gains = (int) (numerosTrouves > 0 ? mise * numerosTrouves * ratio : 0);
 		gainsReels = gains - mise;
 
-		System.out.printf("Total des gains: %d$ (Gains: %d$ - Mise: %d$), car vous avez trouve %d numéro(s).\n",
+		System.out.printf("Total des gains: %d$ (Gains: %d$ - Mise: %d$), car vous avez trouvé %d numéro(s).\n",
 				gainsReels, gains, mise, numerosTrouves);
 
 		return gains;
@@ -84,10 +81,10 @@ public class Jeu {
 	}
 
 	/*
-	 * genere le choix du joueur. Le joueur ne doit pas choisir plusieurs fois le
-	 * meme numero. Ici, on se contente de faire jouer le joueur en faisant
+	 * génère le choix du joueur. Le joueur ne doit pas choisir plusieurs fois le
+	 * même numéro. Ici, on se contente de faire jouer le joueur en faisant
 	 * automatiquement son choix (on pourra changer plus tard pour qu'il fasse
-	 * reellement un choix.)
+	 * réellement un choix.)
 	 */
 	public void resultatJoueur(int[] tab) {
 
@@ -106,7 +103,7 @@ public class Jeu {
 	}
 
 	/*
-	 * cherche une valeur dans un tableau et retourne vrai si la valeur est trouvee.
+	 * cherche une valeur dans un tableau et retourne vrai si la valeur est trouvée.
 	 */
 	public boolean trouve(int aTrouver, int[] tableau) {
 		boolean trouve = false;
@@ -140,7 +137,7 @@ public class Jeu {
 	}
 
 	/*
-	 * compare les resultats du joueur avec ceux tires
+	 * compare les résultats du joueur avec ceux tirés.
 	 * 
 	 */
 	public int resultatTirage(int[] noUsager, int[] noTires) {
@@ -160,8 +157,8 @@ public class Jeu {
 	public String toString() {
 		return "Jeu [" + nom + "]:\n"
 				+ String.format("Dans ce jeu, choississez un chiffre entre 1 et %d.\n", champResultat)
-				+ String.format("Le croupier fait %d tirages.\n", nbrResultats)
-				+ "Gains: vous gagnez la moitie de votre mise autant de fois que vous trouvez votre numero au tirage.";
+				+ String.format("Le croupier fait %d tirage(s).\n", nbrResultats)
+				+ "Gains: vous gagnez la moitié de votre mise autant de fois que vous trouvez votre numero au tirage.";
 	}
 
 	public boolean equals(Jeu autre) {

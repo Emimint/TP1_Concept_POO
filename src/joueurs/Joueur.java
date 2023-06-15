@@ -46,7 +46,7 @@ public class Joueur {
 					this.casino = casino;
 				}
 			} else {
-				System.out.printf("%s est deja dans ce casino...\n", nom);
+				System.out.printf("%s est déjà dans ce casino...\n", nom);
 			}
 
 		}
@@ -97,12 +97,12 @@ public class Joueur {
 
 		chaine = String.format("Le joueur s'apelle %s. ", nom);
 		if (casino != null) {
-			chaine += String.format("\nCe joueur est presentement dans cette salle \"%s\". ", casino.getNom());
+			chaine += String.format("\nCe joueur est présentement dans cette salle \"%s\". ", casino.getNom());
 		}
 		if (capital > 0)
 			chaine += String.format("Il a un capital de %d$. ", capital);
 		else
-			chaine += "Il n'a plus d'argent.\n";
+			chaine += "Il n'a pas d'argent.\n";
 		return chaine;
 	}
 

@@ -55,7 +55,7 @@ public class Casino {
 			joueursPresents++;
 
 			System.out.printf(
-					"Le joueur \"%s\" a rejoins le casino \"%s\". Il y a maintenant %d joueur(s) dans cette salle.\n",
+					"Le joueur \"%s\" a rejoint le casino \"%s\". Il y a maintenant %d joueur(s) dans cette salle.\n",
 					nouveauJoueur.getNom(), nom, joueursPresents);
 
 			return true;
@@ -69,7 +69,7 @@ public class Casino {
 		joueursPresents--;
 
 		System.out.printf(
-				"Le joueur \"%s\" a quitte le casino \"%s\". Il y a maintenant %d joueur(s) dans cette salle.\n",
+				"Le joueur \"%s\" a quitté le casino \"%s\". Il y a maintenant %d joueur(s) dans cette salle.\n",
 				joueur.getNom(), nom, joueursPresents);
 	}
 
@@ -84,7 +84,7 @@ public class Casino {
 	}
 
 	/*
-	 * fait jouer tous les joueurs presents pour une mise donnee
+	 * fait jouer tous les joueurs présents pour une mise donnée
 	 */
 	public void jouer(int mise) {
 
@@ -106,9 +106,9 @@ public class Casino {
 	/**
 	 * Permet de trouver un Joueur dans une liste de Joueur.
 	 *
-	 * @param aTrouver Joueur dont l'existence est deja confirme
-	 * @return int l'indice auquel l'item a été trouvé dans le tableau. Si l'item
-	 *         n'est pas trouvé, la fonction retourne -1
+	 * @param aTrouver: Joueur dont l'existence est déjà confirmée
+	 * @return int l'indice auquel le joueur a été trouvé dans le tableau. Si le
+	 *         joueur n'est pas trouvé, la fonction retourne -1
 	 */
 	public int rechercherIndice(Joueur aTrouver) {
 
@@ -125,11 +125,10 @@ public class Casino {
 	}
 
 	/**
-	 * Permet de reassigner successivement, dans un tableau de Joueurs, la reference
+	 * Permet de réassigner successivement, dans un tableau de Joueurs, la référence
 	 * d'une case avec la valeur de la case suivante.
 	 *
-	 * @param tableau Joueur[] dont on veut shifter les valeurs
-	 * @param indice  int de l'indice de la case visée
+	 * @param indice: indice de la case de démarrage
 	 */
 	public void shiftTab(int indice) {
 		for (int i = indice + 1; i < joueursPresents; i++) {
@@ -141,12 +140,12 @@ public class Casino {
 
 		String chaine;
 
-		chaine = String.format("Le casino s'apelle \"%s\". Il a une capacite maximale de %d joueurs. ", nom,
+		chaine = String.format("Le casino s'apelle \"%s\". Il a une capacité maximale de %d joueur(s). ", nom,
 				joueurs.length);
-		chaine += String.format("Presentement, ce casino propose ce jeu:\n \"%s\"\n", jeu);
+		chaine += String.format("Présentement, ce casino propose ce jeu:\n \"%s\"\n", jeu);
 
 		if (joueursPresents > 0) {
-			chaine += String.format("\nIl a presentement %d joueur(s) dans cette salle. ", joueursPresents);
+			chaine += String.format("\nIl a présentement %d joueur(s) dans cette salle. ", joueursPresents);
 			chaine += "\nLes voici: ";
 			for (int i = 0; i < joueursPresents; i++) {
 				chaine += "\n" + joueurs[i];
