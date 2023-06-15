@@ -11,11 +11,6 @@ public class Casino {
 	private int joueursPresents;
 	private Jeu jeu;
 
-// A gerer si j'ai le temps (ca implique d'atres methodes!!!):
-
-//	private int capital;
-//	private int gains;
-
 	public static int nbrCasinosCrees;
 
 	public Casino() {
@@ -33,14 +28,6 @@ public class Casino {
 		this.maxJoueurs = autre.maxJoueurs;
 		this.joueurs = new Joueur[autre.maxJoueurs];
 		this.jeu = new Jeu(autre.jeu);
-
-		nbrCasinosCrees++;
-
-		// SOLUTION 2 :
-//		this(autre.nom, autre.maxJoueurs);
-//		this.jeu = new Jeu(autre.jeu);
-//		
-//		Jeu.nbrJeuxCrees--;
 	}
 
 	public Casino(String nom, int maxJoueurs) {
@@ -53,15 +40,17 @@ public class Casino {
 	}
 
 	public Casino(String nomJeu, int nbrResultatsJeu, int champResultatJeu) {
-		this();
-		this.jeu = new Jeu(nomJeu, nbrResultatsJeu, champResultatJeu);
-		Jeu.nbrJeuxCrees--;
+		this("casino_" + ++nbrCasinosCrees, 3, nomJeu, nbrResultatsJeu, champResultatJeu);
+		nbrCasinosCrees--;
 	}
 
 	public Casino(String nom, int maxJoueurs, String nomJeu, int nbrResultatsJeu, int champResultatJeu) {
-		this(nom, maxJoueurs);
+		nbrCasinosCrees++;
+		this.nom = nom;
+		this.maxJoueurs = maxJoueurs;
+		joueursPresents = 0;
+		joueurs = new Joueur[maxJoueurs];
 		this.jeu = new Jeu(nomJeu, nbrResultatsJeu, champResultatJeu);
-		Jeu.nbrJeuxCrees--;
 	}
 
 	public boolean ajouterJoueur(Joueur nouveauJoueur) {
@@ -176,7 +165,7 @@ public class Casino {
 	}
 
 	public boolean equals(Casino autre) {
-		if (!this.nom.equals(autre.nom)) {
+		if (!this.nom.equalsIgnoreCase(autre.nom)) {
 			return false;
 		}
 		if (this.maxJoueurs != autre.maxJoueurs) {
