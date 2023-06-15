@@ -68,15 +68,6 @@ public class Joueur {
 		}
 	}
 
-	public boolean aUnCasino(Casino autre) {
-		if (this.casino != autre) {
-			return true;
-		} else {
-			System.out.printf("Vous etes dans le casino \"%s\"...\n", autre.getNom());
-			return false;
-		}
-	}
-
 	public boolean aDesSous() {
 		if (capital > 0) {
 			return true;
@@ -143,7 +134,7 @@ public class Joueur {
 	public void setCapital(int capital) {
 		this.capital = capital;
 	}
-	
+
 	public int getID() {
 		return joueurID;
 	}
