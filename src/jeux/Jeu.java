@@ -193,8 +193,8 @@ public class Jeu {
 		return champResultat;
 	}
 
-	public int[] getResultats() {
-		return resultats;
+	public void getResultats() {
+		afficherNumeros(resultats);
 	}
 
 }

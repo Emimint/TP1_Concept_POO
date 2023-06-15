@@ -28,10 +28,7 @@ public class Casino {
 	}
 
 	public Casino(Casino autre) {
-
-		// a DISCUTER!!! :
-
-		// SOLUTION 1 :
+		nbrCasinosCrees++;
 		this.nom = autre.nom;
 		this.maxJoueurs = autre.maxJoueurs;
 		this.joueurs = new Joueur[autre.maxJoueurs];
@@ -71,9 +68,11 @@ public class Casino {
 		if (joueursPresents < maxJoueurs) {
 			joueurs[joueursPresents] = nouveauJoueur;
 			joueursPresents++;
+			
 			System.out.printf(
 					"Le joueur \"%s\" a rejoins le casino \"%s\". Il y a maintenant %d joueur(s) dans cette salle.\n",
 					nouveauJoueur.getNom(), nom, joueursPresents);
+			
 			return true;
 		} else
 			System.out.println("Ce casino est complet.\n");
@@ -83,13 +82,10 @@ public class Casino {
 	public void enleverJoueur(Joueur joueur) {
 		this.shiftTab(this.rechercherIndice(joueur));
 		joueursPresents--;
+		
 		System.out.printf(
 				"Le joueur \"%s\" a quitte le casino \"%s\". Il y a maintenant %d joueur(s) dans cette salle.\n",
 				joueur.getNom(), nom, joueursPresents);
-	}
-
-	public void faireUnTirage() {
-		jeu.faireUnTirage();
 	}
 
 	public void jouer(Joueur joueur, int mise) {
@@ -98,6 +94,7 @@ public class Casino {
 				int gains = 0;
 				gains = joueur.getCapital() + jeu.calculerGains(mise) - mise;
 				joueur.setCapital(gains);
+				
 				System.out.printf("%s a maintenant %d$.\n", joueur.getNom(), joueur.getCapital());
 			}
 		} else
@@ -108,10 +105,18 @@ public class Casino {
 	 * fait jouer tous les joueurs presents pour une mise donnee
 	 */
 	public void jouer(int mise) {
-		faireUnTirage();
+		
+		jeu.faireUnTirage();
+		
+		System.out.println("\n==================================");
+		System.out.println("Faites vos jeux , rien ne va plus! ");
+		System.out.println("==================================");
+		
 		for (int i = 0; i < joueursPresents; i++) {
+			
 			System.out.printf("\n%d) %s joue:\n", i + 1, joueurs[i].getNom());
-			System.out.println("---------------");
+			System.out.println();
+			
 			jouer(joueurs[i], mise);
 		}
 	}
@@ -165,7 +170,7 @@ public class Casino {
 				chaine += "\n" + joueurs[i];
 			}
 		} else
-			chaine += "Cette salle actuellement est vide. ";
+			chaine += "Cette salle est actuellement vide. ";
 
 		return chaine;
 	}
@@ -199,6 +204,10 @@ public class Casino {
 		return joueursPresents;
 	}
 
+	public Jeu getJeu() {
+		return jeu;
+	}
+	
 	public String getNomJeu() {
 		return jeu.getNom();
 	}

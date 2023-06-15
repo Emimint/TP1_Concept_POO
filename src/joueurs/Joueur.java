@@ -143,6 +143,10 @@ public class Joueur {
 	public void setCapital(int capital) {
 		this.capital = capital;
 	}
+	
+	public int getID() {
+		return joueurID;
+	}
 
 	public Casino getCasino() {
 		return casino;
