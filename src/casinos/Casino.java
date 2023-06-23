@@ -3,12 +3,13 @@ package casinos;
 import jeux.Jeu;
 import joueurs.Joueur;
 
-public class Casino {
+public abstract class Casino implements Comparable<Casino>, ImpotsFonciers {
 
 	private String nom;
 	private Joueur[] joueurs;
 	private int joueursPresents;
 	private Jeu jeu;
+	private int capital;
 
 	public static int nbrCasinosCrees;
 
@@ -24,6 +25,7 @@ public class Casino {
 	public Casino(Casino autre) {
 		nbrCasinosCrees++;
 		this.nom = autre.nom;
+		this.capital = autre.capital;
 		this.joueurs = new Joueur[autre.joueurs.length];
 		if (autre.getJeu() != null)
 			this.jeu = new Jeu(autre.jeu);
@@ -34,6 +36,7 @@ public class Casino {
 	public Casino(String nom, int maxJoueurs) {
 		nbrCasinosCrees++;
 		this.nom = nom;
+		this.capital = 100000;;
 		joueursPresents = 0;
 		joueurs = new Joueur[maxJoueurs];
 		this.jeu = new Jeu();
@@ -47,6 +50,7 @@ public class Casino {
 	public Casino(String nom, int maxJoueurs, String nomJeu, int nbrResultatsJeu, int champResultatJeu) {
 		nbrCasinosCrees++;
 		this.nom = nom;
+		this.capital = 100000;
 		joueursPresents = 0;
 		joueurs = new Joueur[maxJoueurs];
 		this.jeu = new Jeu(nomJeu, nbrResultatsJeu, champResultatJeu);
@@ -138,7 +142,20 @@ public class Casino {
 			joueurs[i - 1] = joueurs[i];
 		}
 	}
+	
+	public int evaluationMunicipale() {
+		return 1000 * joueursPresents;
+	}
 
+	public int compareTo(Casino autre) {
+		if (capital == autre.capital)
+			return 0;
+		else if (capital > autre.capital)
+			return 1;
+		else
+			return -1;
+	}
+	
 	public String toString() {
 
 		String chaine;
@@ -147,6 +164,10 @@ public class Casino {
 				joueurs.length);
 		chaine += String.format("Présentement, ce casino propose ce jeu:\n \"%s\"\n", jeu);
 
+		if (capital > 0) {
+			chaine += String.format("\nLe capital actuel de ce casino est de %d$. ", capital);
+		} else
+			chaine += "Ce casino a fait banqueroute...\n";
 		if (joueursPresents > 0) {
 			chaine += String.format("\nIl a présentement %d joueur(s) dans cette salle. ", joueursPresents);
 			chaine += "\nLes voici: ";
@@ -161,6 +182,9 @@ public class Casino {
 
 	public boolean equals(Casino autre) {
 		if (!this.nom.equalsIgnoreCase(autre.nom)) {
+			return false;
+		}
+		if (this.capital != autre.capital) {
 			return false;
 		}
 		if (this.joueurs.length != autre.joueurs.length) {
@@ -195,4 +219,13 @@ public class Casino {
 	public String getNomJeu() {
 		return jeu.getNom();
 	}
+
+	public int getCapital() {
+		return capital;
+	}
+
+	public void setCapital(int capital) {
+		this.capital = capital;
+	}
+	
 }
