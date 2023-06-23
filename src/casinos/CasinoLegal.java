@@ -1,9 +1,11 @@
 package casinos;
 
-public class CasinoLegal {
+public class CasinoLegal extends Casino {
 
-	public CasinoLegal() {
-		// TODO Auto-generated constructor stub
+	@Override
+	public void payerImpots() {
+		System.out.println("Pas de chance! C'est le jour des impots :( ...");
+		super.setCapital((int) (super.getCapital() * 0.85));
 	}
 
 }
