@@ -1,9 +1,10 @@
 package joueurs;
 
 import casinos.Casino;
+import casinos.ImpotsFonciers;
 import jeux.Jeu;
 
-public class Joueur {
+public abstract class Joueur implements Comparable<Joueur>, ImpotsFonciers {
 
 	private String nom;
 	private int capital;
@@ -27,12 +28,14 @@ public class Joueur {
 	}
 
 	public Joueur(Joueur autre) {
-		this(autre.nom, autre.capital);
+		this.nom = autre.nom;
+		this.capital = autre.capital;
+		this.joueurID = ++nbrJoueursCrees;
 	}
 
 	public Joueur(String nom, int capital) {
 		this.nom = nom;
-		this.capital = capital;
+		this.capital = capital + 500;
 		this.joueurID = ++nbrJoueursCrees;
 	}
 
@@ -90,6 +93,15 @@ public class Joueur {
 		if (aDesSous(mise) && aUnCasino()) {
 			casino.jouer(this, mise);
 		}
+	}
+
+	public int compareTo(Joueur autre) {
+		if (((capital == autre.capital) && (nom.compareTo(autre.getNom()) < 0)) || capital > autre.capital)
+			return 1;
+		else if (capital < autre.capital)
+			return -1;
+		else
+			return 0;
 	}
 
 	public String toString() {
