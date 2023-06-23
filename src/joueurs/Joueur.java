@@ -4,7 +4,7 @@ import casinos.Casino;
 import casinos.ImpotsFonciers;
 import jeux.Jeu;
 
-public abstract class Joueur implements Comparable<Joueur>, ImpotsFonciers {
+public abstract class Joueur implements Comparable<Joueur> {
 
 	private String nom;
 	private int capital;
@@ -25,6 +25,8 @@ public abstract class Joueur implements Comparable<Joueur>, ImpotsFonciers {
 	public Joueur(int capital) {
 		this();
 		this.capital = capital;
+		if (capital < 100000)
+			this.capital = +500;
 	}
 
 	public Joueur(Joueur autre) {
@@ -35,7 +37,9 @@ public abstract class Joueur implements Comparable<Joueur>, ImpotsFonciers {
 
 	public Joueur(String nom, int capital) {
 		this.nom = nom;
-		this.capital = capital + 500;
+		this.capital = capital;
+		if (capital < 100000)
+			this.capital = +500;
 		this.joueurID = ++nbrJoueursCrees;
 	}
 
