@@ -25,7 +25,10 @@ public class Casino {
 		nbrCasinosCrees++;
 		this.nom = autre.nom;
 		this.joueurs = new Joueur[autre.joueurs.length];
-		this.jeu = new Jeu(autre.jeu);
+		if (autre.getJeu() != null)
+			this.jeu = new Jeu(autre.jeu);
+		else
+			this.jeu = null;
 	}
 
 	public Casino(String nom, int maxJoueurs) {
