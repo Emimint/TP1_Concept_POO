@@ -38,7 +38,8 @@ public abstract class Casino implements Comparable<Casino>, ImpotsFonciers {
 	public Casino(String nom, int maxJoueurs) {
 		nbrCasinosCrees++;
 		this.nom = nom;
-		this.capital = 100000;;
+		this.capital = 100000;
+		;
 		joueursPresents = 0;
 		joueurs = new Joueur[maxJoueurs];
 		this.jeu = new Jeu();
@@ -60,10 +61,10 @@ public abstract class Casino implements Comparable<Casino>, ImpotsFonciers {
 
 	public boolean ajouterJoueur(Joueur nouveauJoueur) {
 		if (joueursPresents < joueurs.length) {
-			if(aDesSous(nouveauJoueur)) {
+			if (aDesSous(nouveauJoueur)) {
 				joueurs[joueursPresents] = nouveauJoueur;
 				joueursPresents++;
-				
+
 				System.out.printf(
 						"Le joueur \"%s\" a rejoint le casino \"%s\". Il y a maintenant %d joueur(s) dans cette salle.\n",
 						nouveauJoueur.getNom(), nom, joueursPresents);
@@ -87,6 +88,7 @@ public abstract class Casino implements Comparable<Casino>, ImpotsFonciers {
 		if (joueur.aDesSous(mise)) {
 			int gains = jeu.calculerGains(mise);
 			capital += -gains + mise;
+			System.out.printf("Le casino \"%s\" a un capital actuel de %d$.\n\n", getNom(), getCapital());
 			gains += joueur.getCapital() - mise;
 			joueur.setCapital(gains);
 			System.out.printf("%s a maintenant %d$.\n", joueur.getNom(), joueur.getCapital());
@@ -98,19 +100,23 @@ public abstract class Casino implements Comparable<Casino>, ImpotsFonciers {
 	 */
 	public void jouer(int mise) {
 
-		jeu.faireUnTirage();
+		if (joueursPresents > 0) {
+			
+			jeu.faireUnTirage();
 
-		System.out.println("\n==================================");
-		System.out.println("Faites vos jeux , rien ne va plus! ");
-		System.out.println("==================================");
+			System.out.println("\n==================================");
+			System.out.println("Faites vos jeux , rien ne va plus! ");
+			System.out.println("==================================");
 
-		for (int i = 0; i < joueursPresents; i++) {
+			for (int i = 0; i < joueursPresents; i++) {
 
-			System.out.printf("\n%d) %s joue:\n", i + 1, joueurs[i].getNom());
-			System.out.println();
+				System.out.printf("\n%d) %s joue:\n", i + 1, joueurs[i].getNom());
+				System.out.println();
 
-			jouer(joueurs[i], mise);
-		}
+				jouer(joueurs[i], mise);
+			}
+		} else
+			System.out.println("\nLe casino est vide ...");
 	}
 
 	/**
@@ -145,7 +151,7 @@ public abstract class Casino implements Comparable<Casino>, ImpotsFonciers {
 			joueurs[i - 1] = joueurs[i];
 		}
 	}
-	
+
 	public int evaluationMunicipale() {
 		return 1000 * joueursPresents;
 	}
@@ -158,12 +164,12 @@ public abstract class Casino implements Comparable<Casino>, ImpotsFonciers {
 		else
 			return -1;
 	}
-	
+
 	public boolean aDesSous(Joueur joueurEntrant) {
 		return ((joueurEntrant instanceof JoueurRiche) && joueurEntrant.aDesSous(1000))
 				|| ((joueurEntrant instanceof JoueurPauvre) && joueurEntrant.aDesSous(10));
 	}
-	
+
 	public String toString() {
 
 		String chaine;
@@ -219,6 +225,10 @@ public abstract class Casino implements Comparable<Casino>, ImpotsFonciers {
 	public int getJoueursPresents() {
 		return joueursPresents;
 	}
+	
+	public Joueur[] getJoueurs() {
+		return joueurs;
+	}
 
 	public Jeu getJeu() {
 		return jeu;
@@ -235,5 +245,5 @@ public abstract class Casino implements Comparable<Casino>, ImpotsFonciers {
 	public void setCapital(int capital) {
 		this.capital = capital;
 	}
-	
+
 }
