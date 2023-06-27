@@ -93,9 +93,21 @@ public class Roulette extends Jeu {
 
 	public static int[] chiffresRoue = { 0, 32, 15, 19, 4, 21, 2, 25, 17, 34, 6, 27, 13, 36, 11, 30, 8, 23, 10, 5, 24,
 			16, 33, 1, 20, 14, 31, 9, 22, 18, 29, 7, 28, 12, 35, 3, 26 }; // chiffres sur la roue de la roulette
+	
 	public static int[] voisinsDuZero = { 22, 18, 29, 7, 28, 12, 35, 3, 26, 0, 32, 15, 19, 4, 21, 2, 25 };
 	public static int[] tiersDuCylindre = { 27, 13, 36, 11, 30, 8, 23, 10, 5, 24, 16, 33 };
 	public static int[] orphelins = { 17, 34, 6, 1, 20, 14, 31, 9 };
+
+	int[] premiereColonne = { 1, 4, 7, 10, 13, 16, 19, 22, 25, 28, 31, 34 };
+	int[] deuxiemeColonne = { 2, 5, 8, 11, 14, 17, 20, 23, 26, 29, 32, 35 };
+	int[] troisiemeColonne = { 3, 6, 9, 12, 15, 18, 21, 24, 27, 30, 33, 36 };
+
+	int[][] lesColonnes = { premiereColonne, deuxiemeColonne, troisiemeColonne };
+
+	public static String[] typeDeParis = { "couleur", "simple", "parité", "moitié de cylindre", "les douzaines",
+			"paris sur les voisins" };
+	public static String[] choixPariSurChiffres = { "cheval", "transversale", "carré", "sizain", "les voisins du zéro",
+			"les tiers du cylindre", "les orphelins", "un chiffre et ses voisins" };
 
 	public static List<String> cheval = genererCheval();
 	public static List<String> transversale = genererTransversale();
@@ -119,8 +131,7 @@ public class Roulette extends Jeu {
 	public int calculerGains(int mise) {
 
 		int gains = 0, gainsReels, numerosTrouves;
-//		int[] resultatsJoueur = new int[nbrResultats];
-//		double ratio = 0.5; // remise sur les gains
+		String validation;
 
 		System.out.printf("Vous avez misé %d$.\n", mise);
 
@@ -128,45 +139,97 @@ public class Roulette extends Jeu {
 
 		faireUnTirage();
 
-		for (Object val : resultatDuJoueur) {
-			if (val instanceof int[]) {
-				afficherNumeros((int[]) val, ", ");
+		String typeDePari = (String) resultatDuJoueur.get(0);
 
-			} else {
-				if((int)val == resultatChiffre) {
-				 System.out.println("Le joueur a gagne son pari!");
-				} else
-					System.out.println("Perdu :( ...");
+		System.out.println(resultatDuJoueur.get(1));
+
+		switch (typeDePari) {
+
+		case "couleur":
+			if (strCouleur == (String) resultatDuJoueur.get(1))
+				gains = mise;
+			break;
+
+		case "simple":
+			if (Integer.toString(resultatChiffre).equals(resultatDuJoueur.get(1)))
+				gains = mise * 36;
+			break;
+
+		case "parité":
+			validation = resultatChiffre % 2 == 0 ? "Pair" : "Impair";
+			if (validation == (String) resultatDuJoueur.get(1))
+				gains = mise;
+			break;
+
+		case "moitié de cylindre":
+			validation = resultatChiffre < 19 ? "Manque" : "Passe";
+			if (validation == (String) resultatDuJoueur.get(1))
+				gains = mise;
+			break;
+
+		case "les douzaines":
+
+			int choix = Character.getNumericValue(((String) resultatDuJoueur.get(1)).charAt(0));
+
+			if (trouveIndice(resultatChiffre, lesColonnes[choix - 1]) > -1) {
+				System.out.println();
+				gains = mise * 2;
+
 			}
+			break;
+
+		default:
+
+			String selectionPari = (String) resultatDuJoueur.get(1);
+
+			if (trouveIndice(resultatChiffre, (int[]) resultatDuJoueur.get(2)) > -1) {
+				switch (selectionPari) {
+
+				case "cheval":
+					gains = mise * 17;
+					break;
+
+				case "transversale":
+					gains = mise * 11;
+					break;
+
+				case "carré":
+					gains = mise * 8;
+					break;
+
+				case "sizain":
+					gains = mise * 5;
+					break;
+
+				case "les voisins du zéro":
+				case "les tiers du cylindre":
+				case "les orphelins":
+				default:
+					gains = mise / ((int[]) resultatDuJoueur.get(2)).length + mise;
+					break;
+				}
+			}
+			break;
 		}
 
-//		System.out.printf("\nVous avez misé sur la couleur %s.\n"
-//				+ "La couleur etait %s", strResultatJoueur, strCouleur);
-
-//		System.out.println("Résultats du joueur:");
-//		afficherNumeros(resultatsJoueur, " ");
-//
-//		numerosTrouves = resultatTirage(resultatsJoueur, resultats);
-//
-//		gains = (int) (numerosTrouves > 0 ? mise * numerosTrouves * ratio : 0);
-//		gainsReels = gains - mise;
-//
-//		System.out.printf("Total des gains: %d$ (Gains: %d$ - Mise: %d$), car vous avez trouvé %d numéro(s).\n",
-//				gainsReels, gains, mise, numerosTrouves);
+		if (gains > 0)
+			System.out.printf("Total des gains: %d$ (Gains: %d$ - Mise: %d$).\n", gains - mise, gains, mise);
+		else
+			System.out.printf("\nPerdu :( ... \n");
 
 		return gains;
 	}
 
 	public void resultatJoueur() {
 
-		String[] typeDeParis = { "couleur", "simple", "parité", "moitié de cylindre", "les douzaines",
-				"paris sur les voisins" };
+		resultatDuJoueur = new ArrayList<>();
 
 		int choix = getRandom(0, 5);
 
+		resultatDuJoueur.add(typeDeParis[choix]);
+
 		int resultatJoueur = getRandom(0, 1);
 
-		resultatDuJoueur = new ArrayList<>();
 		String strResultatJoueur = "";
 
 		System.out.printf("\nLe joueur fait un pari de type \"%s\" : " + "il a choisi \"", typeDeParis[choix]);
@@ -194,7 +257,7 @@ public class Roulette extends Jeu {
 				strResultatJoueur += " douzaine";
 				break;
 			}
-			resultatDuJoueur.add(resultatJoueur);
+			resultatDuJoueur.add(strResultatJoueur);
 		} else {
 			resultatDuJoueur.add(selectionPariChiffre());
 		}
@@ -204,14 +267,13 @@ public class Roulette extends Jeu {
 
 	public int[] selectionPariChiffre() {
 
-		String[] choixPariSurChiffres = { "cheval", "transversale", "carré", "sizain", "les voisins du zéro",
-				"les tiers du cylindre", "les orphelins", "un chiffre et ses voisins" };
-
 		String strResultatJoueur = "";
 
 		int choix = getRandom(0, 7);
 
 		System.out.print(choixPariSurChiffres[choix]);
+
+		resultatDuJoueur.add(choixPariSurChiffres[choix]);
 
 		int[] listResultatJoueur;
 
@@ -391,7 +453,6 @@ public class Roulette extends Jeu {
 				resultats[i] = debutIncrement++;
 			}
 		}
-
 		return resultats;
 	}
 
