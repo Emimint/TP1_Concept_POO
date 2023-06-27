@@ -1,7 +1,11 @@
 package jeux;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.IntStream;
+
+import main.TestCasino;
 
 /*
  * Implementation du jeu de roulette francaise
@@ -87,30 +91,16 @@ import java.util.List;
 
 public class Roulette extends Jeu {
 
-	public static void main(String[] args) {
+	static int[] chiffresRoue = { 0, 32, 15, 19, 4, 21, 2, 25, 17, 34, 6, 27, 13, 36, 11, 30, 8, 23, 10, 5, 24, 16, 33,
+			1, 20, 14, 31, 9, 22, 18, 29, 7, 28, 12, 35, 3, 26 }; // chiffres sur la roue de la roulette
+	static int[] voisinsDuZero = { 22, 18, 29, 7, 28, 12, 35, 3, 26, 0, 32, 15, 19, 4, 21, 2, 25 };
+	static int[] tiersDuCylindre = { 27, 13, 36, 11, 30, 8, 23, 10, 5, 24, 16, 33 };
+	static int[] orphelins = { 17, 34, 6, 1, 20, 14, 31, 9 };
 
-		int[] chiffresRoue = { 0, 32, 15, 19, 4, 21, 2, 25, 17, 34, 6, 27, 13, 36, 11, 30, 8, 23, 10, 5, 24, 16, 33, 1,
-				20, 14, 31, 9, 22, 18, 29, 7, 28, 12, 35, 3, 26 }; // chiffres sur la roue de la roulette
-		int[] voisinsDuZero = { 22, 18, 29, 7, 28, 12, 35, 3, 26, 0, 32, 15, 19, 4, 21, 2, 25 };
-		int[] tiersDuCylindre = { 27, 13, 36, 11, 30, 8, 23, 10, 5, 24, 16, 33 };
-		int[] orphelins = { 17, 34, 6, 1, 20, 14, 31, 9 };
-
-		List<String> cheval = genererCheval();
-		List<String> transversal = genererTransversal();
-		List<String> carre = genererCarre();
-		List<String> sizain = genererSizain();
-
-		// Print all six line bet combinations
-		for (String pari : transversal) {
-			System.out.println(pari);
-		}
-
-		System.out.println(cheval.size());
-		System.out.println(transversal.size());
-		System.out.println(carre.size());
-		System.out.println(sizain.size());
-		System.out.println(chiffresRoue.length);
-	}
+	public static List<String> cheval = genererCheval();
+	public static List<String> transversale = genererTransversale();
+	public static List<String> carre = genererCarre();
+	public static List<String> sizain = genererSizain();
 
 	public static List<String> genererCheval() {
 		List<String> cheval = new ArrayList<>();
@@ -120,7 +110,6 @@ public class Roulette extends Jeu {
 		int[] vertical = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25,
 				26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36 };
 
-		// Generate horizontal split bets
 		for (int i = 0; i < horizontal.length - 1; i++) {
 			int choix1 = horizontal[i];
 			int choix2 = horizontal[i + 1];
@@ -128,11 +117,9 @@ public class Roulette extends Jeu {
 				cheval.add(choix1 + "-" + choix2);
 		}
 
-		// Generate vertical split bets
 		for (int i = 0; i < vertical.length; i++) {
 			int choix = vertical[i];
 
-			// Check if the number is not in the last row
 			if (choix <= 33) {
 				int choix1 = vertical[i];
 				int choix2 = vertical[i + 3];
@@ -144,16 +131,16 @@ public class Roulette extends Jeu {
 		return cheval;
 	}
 
-	public static List<String> genererTransversal() {
-		List<String> transversal = new ArrayList<>();
+	public static List<String> genererTransversale() {
+		List<String> transversale = new ArrayList<>();
 
 		for (int rangee = 1; rangee <= 12; rangee++) {
 			int debut = (rangee - 1) * 3 + 1;
 			int fin = debut + 2;
-			transversal.add(debut + "-" + fin);
+			transversale.add(debut + "-" + fin);
 		}
 
-		return transversal;
+		return transversale;
 	}
 
 	public static List<String> genererCarre() {
@@ -185,11 +172,176 @@ public class Roulette extends Jeu {
 		return sizain;
 	}
 
-	public void resultatJoueur(int[] tab) {
+	public void resultatJoueur() {
 
-		// 1 ) choix de mise : cheval, orphelin, sizain, ect...
-		// 2 ) choix precision : random sur la liste des choix
-		// 3 ) creation liste resultat du joueur
+		String[] typeDeParis = { "couleur", "simple", "parité", "moitié de cylindre", "les douzaines",
+				"paris sur les voisins" };
 
+		int choix = getRandom(0, 5);
+
+		int resultatJoueur = getRandom(0, 1);
+		String strResultatJoueur = "";
+
+		ArrayList<Object> resultatDuJoueur = new ArrayList<>();
+
+		System.out.printf("\nLe joueur fait un pari de type \"%s\" : " + "il a choisi \"", typeDeParis[choix]);
+
+		if (choix != 5) {
+
+			switch (choix) {
+			case 0:
+				strResultatJoueur += resultatJoueur == 1 ? "Noir" : "Rouge";
+				break;
+			case 1:
+				resultatJoueur = getRandom(0, 36);
+				strResultatJoueur += "" + resultatJoueur;
+				break;
+			case 2:
+				strResultatJoueur += resultatJoueur == 1 ? "Pair" : "Impair";
+				break;
+			case 3:
+				strResultatJoueur += resultatJoueur == 1 ? "Manque" : "Passe";
+				break;
+			default:
+				resultatJoueur = getRandom(1, 3);
+				strResultatJoueur += "" + resultatJoueur;
+				strResultatJoueur += resultatJoueur == 1 ? "ère" : "ème";
+				strResultatJoueur += " douzaine";
+				break;
+			}
+			resultatDuJoueur.add(resultatJoueur);
+		} else {
+			resultatDuJoueur.add(selectionPariChiffre());
+		}
+
+		System.out.print(strResultatJoueur + "\".\n");
 	}
+
+	public int[] selectionPariChiffre() {
+
+		String[] choixPariSurChiffres = { "cheval", "transversale", "carré", "sizain", "les voisins du zéro",
+				"les tiers du cylindre", "les orphelins", "un chiffre et ses voisins" };
+
+		String strResultatJoueur = "";
+
+		int choix = getRandom(0, 7);
+
+		System.out.print(choixPariSurChiffres[choix]);
+
+		int[] listResultatJoueur;
+
+		switch (choix) {
+
+		case 0:
+			strResultatJoueur = cheval.get(getRandom(0, cheval.size() - 1));
+			listResultatJoueur = getIntList(strResultatJoueur, 2);
+			break;
+		case 1:
+			strResultatJoueur = transversale.get(getRandom(0, transversale.size() - 1));
+			listResultatJoueur = getIntList(strResultatJoueur, 3);
+			break;
+		case 2:
+			strResultatJoueur = carre.get(getRandom(0, carre.size() - 1));
+			listResultatJoueur = getIntList(strResultatJoueur, 4);
+			break;
+		case 3:
+			strResultatJoueur = sizain.get(getRandom(0, sizain.size() - 1));
+			listResultatJoueur = getIntList(strResultatJoueur, 6);
+			break;
+		case 4:
+			listResultatJoueur = voisinsDuZero;
+			break;
+		case 5:
+			listResultatJoueur = tiersDuCylindre;
+			break;
+		case 6:
+			listResultatJoueur = orphelins;
+			break;
+		default:
+			int val = getRandom(0, 36);
+			listResultatJoueur = getVoisins(chiffresRoue, val);
+			break;
+		}
+		return listResultatJoueur;
+	}
+
+	public int getRandom(int min, int max) {
+		return min + (int) (Math.random() * (max - min + 1));
+	}
+
+	public int trouveIndice(int aTrouver, int[] tableau) {
+		boolean trouve = false;
+		int indice = 0;
+
+		while (!trouve && indice < tableau.length) {
+			if (tableau[indice] == aTrouver) {
+				return indice;
+			}
+
+			indice++;
+		}
+		return -1;
+	}
+
+	public int[] getVoisins(int[] tab, int selection) {
+
+		int[] resultats = new int[5];
+
+		int milieu = trouveIndice(selection, tab);
+		int voisin1 = milieu - 2;
+		int voisin2 = milieu - 1;
+		int voisin3 = milieu + 1;
+		int voisin4 = milieu + 2;
+
+		if (voisin1 == -1) {
+			voisin1 = tab.length - 1;
+		}
+		if (voisin1 == -2) {
+			voisin1 = tab.length - 2;
+			voisin2 = tab.length - 1;
+		}
+		if (voisin4 == tab.length) {
+			voisin4 = tab.length - tab.length;
+		}
+		if (voisin4 == tab.length + 1) {
+			voisin4 = tab.length - tab.length + 1;
+			voisin3 = tab.length - tab.length;
+		}
+
+		resultats[0] = tab[voisin1];
+		resultats[1] = tab[voisin2];
+		resultats[2] = tab[milieu];
+		resultats[3] = tab[voisin3];
+		resultats[4] = tab[voisin4];
+
+		System.out.print(" (");
+
+		afficherNumeros(resultats, ",");
+
+		System.out.print(")");
+
+		return resultats;
+	}
+
+	public int[] getIntList(String liste, int taille) {
+
+		System.out.printf(" (%s)", liste);
+
+		String[] listeChiffres = liste.split("-");
+		int[] resultats = new int[taille];
+
+		if (taille == 4 || taille == 2) {
+			for (int i = 0; i < resultats.length; i++) {
+				resultats[i] = Integer.parseInt(listeChiffres[i]);
+			}
+		} else {
+			int debutIncrement = Integer.parseInt(listeChiffres[0]);
+			for (int i = 0; i < taille; i++) {
+				resultats[i] = debutIncrement++;
+			}
+		}
+
+		return resultats;
+	}
+
 }
