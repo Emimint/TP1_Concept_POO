@@ -5,9 +5,9 @@ public class Jeu {
 	private String nom;
 
 	// variables propres à un jeu de hasard:
-	private int nbrResultats; 	// nombre de résultats attendus
-	private int champResultat;	// valeur limite maximale pour un des résultats
-	private int[] resultats; 	// tableau des résultats à remplir dans la classe Casino
+	private int nbrResultats; // nombre de résultats attendus
+	private int champResultat; // valeur limite maximale pour un des résultats
+	private int[] resultats; // tableau des résultats à remplir dans la classe Casino
 
 	public static int nbrJeuxCrees;
 
@@ -44,8 +44,7 @@ public class Jeu {
 	}
 
 	/*
-	 * prend la mise d'un joueur et retourne 
-	 * ses gains
+	 * prend la mise d'un joueur et retourne ses gains
 	 */
 	public int calculerGains(int mise) {
 
@@ -55,12 +54,12 @@ public class Jeu {
 
 		System.out.printf("Vous avez misé %d$.\n", mise);
 		System.out.println("Résultats du tirage:");
-		afficherNumeros(resultats);
+		afficherNumeros(resultats, " ");
 
 		resultatJoueur(resultatsJoueur);
 
 		System.out.println("Résultats du joueur:");
-		afficherNumeros(resultatsJoueur);
+		afficherNumeros(resultatsJoueur, " ");
 
 		numerosTrouves = resultatTirage(resultatsJoueur, resultats);
 
@@ -73,11 +72,12 @@ public class Jeu {
 		return gains;
 	}
 
-	public void afficherNumeros(int[] tab) {
+	public void afficherNumeros(int[] tab, String delimiteur) {
 		for (int i = 0; i < tab.length; i++) {
-			System.out.print(tab[i] + "  ");
+			System.out.print(tab[i]);
+			if (i < tab.length - 1)
+				System.out.print(delimiteur);
 		}
-		System.out.println();
 	}
 
 	/*
@@ -191,7 +191,7 @@ public class Jeu {
 	}
 
 	public void getResultats() {
-		afficherNumeros(resultats);
+		afficherNumeros(resultats," ");
 	}
 
 }
