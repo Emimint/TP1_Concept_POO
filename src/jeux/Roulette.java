@@ -91,16 +91,164 @@ import main.TestCasino;
 
 public class Roulette extends Jeu {
 
-	static int[] chiffresRoue = { 0, 32, 15, 19, 4, 21, 2, 25, 17, 34, 6, 27, 13, 36, 11, 30, 8, 23, 10, 5, 24, 16, 33,
-			1, 20, 14, 31, 9, 22, 18, 29, 7, 28, 12, 35, 3, 26 }; // chiffres sur la roue de la roulette
-	static int[] voisinsDuZero = { 22, 18, 29, 7, 28, 12, 35, 3, 26, 0, 32, 15, 19, 4, 21, 2, 25 };
-	static int[] tiersDuCylindre = { 27, 13, 36, 11, 30, 8, 23, 10, 5, 24, 16, 33 };
-	static int[] orphelins = { 17, 34, 6, 1, 20, 14, 31, 9 };
+	public static int[] chiffresRoue = { 0, 32, 15, 19, 4, 21, 2, 25, 17, 34, 6, 27, 13, 36, 11, 30, 8, 23, 10, 5, 24,
+			16, 33, 1, 20, 14, 31, 9, 22, 18, 29, 7, 28, 12, 35, 3, 26 }; // chiffres sur la roue de la roulette
+	public static int[] voisinsDuZero = { 22, 18, 29, 7, 28, 12, 35, 3, 26, 0, 32, 15, 19, 4, 21, 2, 25 };
+	public static int[] tiersDuCylindre = { 27, 13, 36, 11, 30, 8, 23, 10, 5, 24, 16, 33 };
+	public static int[] orphelins = { 17, 34, 6, 1, 20, 14, 31, 9 };
 
 	public static List<String> cheval = genererCheval();
 	public static List<String> transversale = genererTransversale();
 	public static List<String> carre = genererCarre();
 	public static List<String> sizain = genererSizain();
+
+	private String strCouleur;
+	private int resultatChiffre;
+	private ArrayList<Object> resultatDuJoueur;
+
+	public void faireUnTirage() {
+
+		int resultatCouleur = getRandom(0, 1);
+		strCouleur = resultatCouleur == 1 ? "Noir" : "Rouge";
+
+		resultatChiffre = getRandom(0, 36);
+
+		System.out.printf("\nLes jeux sont faits: %d, %s.\n", resultatChiffre, strCouleur);
+	}
+
+	public int calculerGains(int mise) {
+
+		int gains = 0, gainsReels, numerosTrouves;
+//		int[] resultatsJoueur = new int[nbrResultats];
+//		double ratio = 0.5; // remise sur les gains
+
+		System.out.printf("Vous avez misé %d$.\n", mise);
+
+		resultatJoueur();
+
+		faireUnTirage();
+
+		for (Object val : resultatDuJoueur) {
+			if (val instanceof int[]) {
+				afficherNumeros((int[]) val, ", ");
+
+			} else {
+				if((int)val == resultatChiffre) {
+				 System.out.println("Le joueur a gagne son pari!");
+				} else
+					System.out.println("Perdu :( ...");
+			}
+		}
+
+//		System.out.printf("\nVous avez misé sur la couleur %s.\n"
+//				+ "La couleur etait %s", strResultatJoueur, strCouleur);
+
+//		System.out.println("Résultats du joueur:");
+//		afficherNumeros(resultatsJoueur, " ");
+//
+//		numerosTrouves = resultatTirage(resultatsJoueur, resultats);
+//
+//		gains = (int) (numerosTrouves > 0 ? mise * numerosTrouves * ratio : 0);
+//		gainsReels = gains - mise;
+//
+//		System.out.printf("Total des gains: %d$ (Gains: %d$ - Mise: %d$), car vous avez trouvé %d numéro(s).\n",
+//				gainsReels, gains, mise, numerosTrouves);
+
+		return gains;
+	}
+
+	public void resultatJoueur() {
+
+		String[] typeDeParis = { "couleur", "simple", "parité", "moitié de cylindre", "les douzaines",
+				"paris sur les voisins" };
+
+		int choix = getRandom(0, 5);
+
+		int resultatJoueur = getRandom(0, 1);
+
+		resultatDuJoueur = new ArrayList<>();
+		String strResultatJoueur = "";
+
+		System.out.printf("\nLe joueur fait un pari de type \"%s\" : " + "il a choisi \"", typeDeParis[choix]);
+
+		if (choix != 5) {
+
+			switch (choix) {
+			case 0:
+				strResultatJoueur = resultatJoueur == 1 ? "Noir" : "Rouge";
+				break;
+			case 1:
+				resultatJoueur = getRandom(0, 36);
+				strResultatJoueur = "" + resultatJoueur;
+				break;
+			case 2:
+				strResultatJoueur = resultatJoueur == 1 ? "Pair" : "Impair";
+				break;
+			case 3:
+				strResultatJoueur = resultatJoueur == 1 ? "Manque" : "Passe";
+				break;
+			default:
+				resultatJoueur = getRandom(1, 3);
+				strResultatJoueur += "" + resultatJoueur;
+				strResultatJoueur += resultatJoueur == 1 ? "ère" : "ème";
+				strResultatJoueur += " douzaine";
+				break;
+			}
+			resultatDuJoueur.add(resultatJoueur);
+		} else {
+			resultatDuJoueur.add(selectionPariChiffre());
+		}
+
+		System.out.print(strResultatJoueur + "\".\n");
+	}
+
+	public int[] selectionPariChiffre() {
+
+		String[] choixPariSurChiffres = { "cheval", "transversale", "carré", "sizain", "les voisins du zéro",
+				"les tiers du cylindre", "les orphelins", "un chiffre et ses voisins" };
+
+		String strResultatJoueur = "";
+
+		int choix = getRandom(0, 7);
+
+		System.out.print(choixPariSurChiffres[choix]);
+
+		int[] listResultatJoueur;
+
+		switch (choix) {
+
+		case 0:
+			strResultatJoueur = cheval.get(getRandom(0, cheval.size() - 1));
+			listResultatJoueur = getIntList(strResultatJoueur, 2);
+			break;
+		case 1:
+			strResultatJoueur = transversale.get(getRandom(0, transversale.size() - 1));
+			listResultatJoueur = getIntList(strResultatJoueur, 3);
+			break;
+		case 2:
+			strResultatJoueur = carre.get(getRandom(0, carre.size() - 1));
+			listResultatJoueur = getIntList(strResultatJoueur, 4);
+			break;
+		case 3:
+			strResultatJoueur = sizain.get(getRandom(0, sizain.size() - 1));
+			listResultatJoueur = getIntList(strResultatJoueur, 6);
+			break;
+		case 4:
+			listResultatJoueur = voisinsDuZero;
+			break;
+		case 5:
+			listResultatJoueur = tiersDuCylindre;
+			break;
+		case 6:
+			listResultatJoueur = orphelins;
+			break;
+		default:
+			int val = getRandom(0, 36);
+			listResultatJoueur = getVoisins(chiffresRoue, val);
+			break;
+		}
+		return listResultatJoueur;
+	}
 
 	public static List<String> genererCheval() {
 		List<String> cheval = new ArrayList<>();
@@ -170,103 +318,6 @@ public class Roulette extends Jeu {
 		}
 
 		return sizain;
-	}
-
-	public void resultatJoueur() {
-
-		String[] typeDeParis = { "couleur", "simple", "parité", "moitié de cylindre", "les douzaines",
-				"paris sur les voisins" };
-
-		int choix = getRandom(0, 5);
-
-		int resultatJoueur = getRandom(0, 1);
-		String strResultatJoueur = "";
-
-		ArrayList<Object> resultatDuJoueur = new ArrayList<>();
-
-		System.out.printf("\nLe joueur fait un pari de type \"%s\" : " + "il a choisi \"", typeDeParis[choix]);
-
-		if (choix != 5) {
-
-			switch (choix) {
-			case 0:
-				strResultatJoueur += resultatJoueur == 1 ? "Noir" : "Rouge";
-				break;
-			case 1:
-				resultatJoueur = getRandom(0, 36);
-				strResultatJoueur += "" + resultatJoueur;
-				break;
-			case 2:
-				strResultatJoueur += resultatJoueur == 1 ? "Pair" : "Impair";
-				break;
-			case 3:
-				strResultatJoueur += resultatJoueur == 1 ? "Manque" : "Passe";
-				break;
-			default:
-				resultatJoueur = getRandom(1, 3);
-				strResultatJoueur += "" + resultatJoueur;
-				strResultatJoueur += resultatJoueur == 1 ? "ère" : "ème";
-				strResultatJoueur += " douzaine";
-				break;
-			}
-			resultatDuJoueur.add(resultatJoueur);
-		} else {
-			resultatDuJoueur.add(selectionPariChiffre());
-		}
-
-		System.out.print(strResultatJoueur + "\".\n");
-	}
-
-	public int[] selectionPariChiffre() {
-
-		String[] choixPariSurChiffres = { "cheval", "transversale", "carré", "sizain", "les voisins du zéro",
-				"les tiers du cylindre", "les orphelins", "un chiffre et ses voisins" };
-
-		String strResultatJoueur = "";
-
-		int choix = getRandom(0, 7);
-
-		System.out.print(choixPariSurChiffres[choix]);
-
-		int[] listResultatJoueur;
-
-		switch (choix) {
-
-		case 0:
-			strResultatJoueur = cheval.get(getRandom(0, cheval.size() - 1));
-			listResultatJoueur = getIntList(strResultatJoueur, 2);
-			break;
-		case 1:
-			strResultatJoueur = transversale.get(getRandom(0, transversale.size() - 1));
-			listResultatJoueur = getIntList(strResultatJoueur, 3);
-			break;
-		case 2:
-			strResultatJoueur = carre.get(getRandom(0, carre.size() - 1));
-			listResultatJoueur = getIntList(strResultatJoueur, 4);
-			break;
-		case 3:
-			strResultatJoueur = sizain.get(getRandom(0, sizain.size() - 1));
-			listResultatJoueur = getIntList(strResultatJoueur, 6);
-			break;
-		case 4:
-			listResultatJoueur = voisinsDuZero;
-			break;
-		case 5:
-			listResultatJoueur = tiersDuCylindre;
-			break;
-		case 6:
-			listResultatJoueur = orphelins;
-			break;
-		default:
-			int val = getRandom(0, 36);
-			listResultatJoueur = getVoisins(chiffresRoue, val);
-			break;
-		}
-		return listResultatJoueur;
-	}
-
-	public int getRandom(int min, int max) {
-		return min + (int) (Math.random() * (max - min + 1));
 	}
 
 	public int trouveIndice(int aTrouver, int[] tableau) {
