@@ -1,6 +1,8 @@
 package casinos;
 
 import jeux.Jeu;
+import jeux.LotoQuebec;
+import jeux.Roulette;
 import joueurs.Joueur;
 import joueurs.JoueurPauvre;
 import joueurs.JoueurRiche;
@@ -25,38 +27,26 @@ public abstract class Casino implements Comparable<Casino>, ImpotsFonciers {
 	}
 
 	public Casino(Casino autre) {
-		nbrCasinosCrees++;
-		this.nom = autre.nom;
+		this(autre.nom, autre.getMaxJoueurs());
 		this.capital = autre.capital;
-		this.joueurs = new Joueur[autre.joueurs.length];
+
 		if (autre.getJeu() != null)
-			this.jeu = new Jeu(autre.jeu);
+			this.jeu = autre.jeu;
 		else
 			this.jeu = null;
 	}
 
 	public Casino(String nom, int maxJoueurs) {
-		nbrCasinosCrees++;
-		this.nom = nom;
-		this.capital = 100000;
-		;
-		joueursPresents = 0;
-		joueurs = new Joueur[maxJoueurs];
-		this.jeu = new Jeu();
+		this(nom, maxJoueurs, new Roulette());
 	}
-
-	public Casino(String nomJeu, int nbrResultatsJeu, int champResultatJeu) {
-		this("casino_" + ++nbrCasinosCrees, 3, nomJeu, nbrResultatsJeu, champResultatJeu);
-		nbrCasinosCrees--;
-	}
-
-	public Casino(String nom, int maxJoueurs, String nomJeu, int nbrResultatsJeu, int champResultatJeu) {
+	
+	public Casino(String nom, int maxJoueurs, Jeu jeu) {
 		nbrCasinosCrees++;
 		this.nom = nom;
 		this.capital = 100000;
 		joueursPresents = 0;
 		joueurs = new Joueur[maxJoueurs];
-		this.jeu = new Jeu(nomJeu, nbrResultatsJeu, champResultatJeu);
+		this.jeu = jeu;
 	}
 
 	public boolean ajouterJoueur(Joueur nouveauJoueur) {
@@ -89,8 +79,7 @@ public abstract class Casino implements Comparable<Casino>, ImpotsFonciers {
 			int gains = jeu.calculerGains(mise);
 			capital += -gains + mise;
 			System.out.printf("Le casino \"%s\" a un capital actuel de %d$.\n\n", getNom(), getCapital());
-			gains += joueur.getCapital() - mise;
-			joueur.setCapital(gains);
+			joueur.setCapital(gains - mise + joueur.getCapital());
 			System.out.printf("%s a maintenant %d$.\n", joueur.getNom(), joueur.getCapital());
 		}
 	}
@@ -101,7 +90,7 @@ public abstract class Casino implements Comparable<Casino>, ImpotsFonciers {
 	public void jouer(int mise) {
 
 		if (joueursPresents > 0) {
-			
+
 			jeu.faireUnTirage();
 
 			System.out.println("\n==================================");
@@ -225,7 +214,7 @@ public abstract class Casino implements Comparable<Casino>, ImpotsFonciers {
 	public int getJoueursPresents() {
 		return joueursPresents;
 	}
-	
+
 	public Joueur[] getJoueurs() {
 		return joueurs;
 	}

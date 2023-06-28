@@ -133,7 +133,7 @@ public final class Roulette extends Jeu {
 		}
 
 		if (gains > 0)
-			System.out.printf("Total des gains: %d$ (Gains: %d$ - Mise: %d$).\n", gains - mise, gains, mise);
+			System.out.printf("Total des gains: %d$.\n", gains);
 		else
 			System.out.printf("\nPerdu :( ... \n");
 

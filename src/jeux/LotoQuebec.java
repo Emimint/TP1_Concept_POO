@@ -20,8 +20,10 @@ public class LotoQuebec extends JeuSimple {
 		int[] resultatsJoueur = new int[getNbrResultats()];
 
 		int nbrTicketsJoueur = mise <= 30 ? mise / 3 : 10;
-
+		
 		System.out.printf("Vous avez misé %d$, ce qui vous donne %d tickets.\n\n", mise, nbrTicketsJoueur);
+
+		mise = mise <= 30 ? 0 : mise - 30;
 
 		System.out.println("Résultats du tirage:");
 		afficherNumeros(getResultats(), " ");
@@ -65,7 +67,7 @@ public class LotoQuebec extends JeuSimple {
 
 		System.out.printf("Total des gains: %d$.\n", gainsTotals);
 
-		return gainsTotals;
+		return gainsTotals + mise;
 	}
 
 	public String toString() {
