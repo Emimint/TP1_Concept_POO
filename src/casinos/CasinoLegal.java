@@ -25,16 +25,6 @@ public class CasinoLegal extends Casino {
 		peutJouer = true;
 	}
 
-	public CasinoLegal(String nomJeu, int nbrResultatsJeu, int champResultatJeu) {
-		this("casino_" + ++nbrCasinosCrees, 3, nomJeu, nbrResultatsJeu, champResultatJeu);
-		nbrCasinosCrees--;
-	}
-
-	public CasinoLegal(String nom, int maxJoueurs, String nomJeu, int nbrResultatsJeu, int champResultatJeu) {
-		super(nom, maxJoueurs, nomJeu, nbrResultatsJeu, champResultatJeu);
-		peutJouer = true;
-	}
-
 	@Override
 	public void payerImpots() {
 		System.out.println("Pas de chance! C'est le jour des impots :( ...");

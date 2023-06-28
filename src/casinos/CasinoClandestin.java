@@ -20,14 +20,6 @@ public class CasinoClandestin extends Casino {
 		super(nom, maxJoueurs);
 	}
 
-	public CasinoClandestin(String nomJeu, int nbrResultatsJeu, int champResultatJeu) {
-		super(nomJeu, nbrResultatsJeu, champResultatJeu);
-	}
-
-	public CasinoClandestin(String nom, int maxJoueurs, String nomJeu, int nbrResultatsJeu, int champResultatJeu) {
-		super(nom, maxJoueurs, nomJeu, nbrResultatsJeu, champResultatJeu);
-	}
-
 	@Override
 	public void payerImpots() {
 		int chance = (int) ((100 * Math.random()) + 1);
