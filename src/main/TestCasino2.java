@@ -4,6 +4,7 @@ import casinos.Casino;
 import casinos.CasinoClandestin;
 import casinos.CasinoLegal;
 import jeux.Jeu;
+import jeux.LotoQuebec;
 import joueurs.Joueur;
 import joueurs.JoueurPauvre;
 import joueurs.JoueurRiche;
@@ -192,7 +193,7 @@ public class TestCasino2 {
 		 * System.out.println("***      Tests pour méthodes payerImpots()     ***");
 		 * System.out.println("**************************************************\n");
 		 */
-		Casino casinoBasFonds = new CasinoClandestin(10);
+		Casino casinoBasFonds = new CasinoClandestin("Les Bas-Fonds", 10);
 
 		/*
 		 * System.out.printf(
@@ -534,6 +535,47 @@ public class TestCasino2 {
 		System.out.println(joueurAlpha);
 		((JoueurRiche) (joueurAlpha)).banqueRoute();
 		
+		System.out.println("\n**************************************************");
+		System.out.println("***      Tests pour méthode changerJeu()       ***");
+		System.out.println("**************************************************\n");
+
+		System.out.println("\n-----------*1*-----------");
+
+		joueur1.setCapital(1500);
+		joueur1.joindreCasino(casinoBasFonds);
+
+		System.out.println("\n-----------*2*-----------");
+
+		joueur2.setCapital(1150);
+		joueur2.joindreCasino(casinoBasFonds);
+
+		System.out.println("\n-----------*3*-----------");
+
+		joueur3.joindreCasino(casinoBasFonds);
+		
+		System.out.println("\n-----------*4*-----------");
+		
+		System.out.println(casinoBasFonds);
+		
+		System.out.println("\n-----------*5*-----------");
+		
+		casinoBasFonds.jouer(100);
+		
+		System.out.println("\n-----------*4*-----------");
+		
+		System.out.println(casinoBasFonds);
+		
+		System.out.println("\n-----------*6*-----------");
+		
+		casinoBasFonds.changerJeu(new LotoQuebec("Loto 6/49"));
+		
+		System.out.println("\n-----------*7*-----------");
+
+		System.out.println(casinoBasFonds);
+		
+		System.out.println("\n-----------*8*-----------");
+		
+		casinoBasFonds.jouer(10);
 
 	}
 

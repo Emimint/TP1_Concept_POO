@@ -158,6 +158,12 @@ public abstract class Casino implements Comparable<Casino>, ImpotsFonciers {
 		return ((joueurEntrant instanceof JoueurRiche) && joueurEntrant.aDesSous(1000))
 				|| ((joueurEntrant instanceof JoueurPauvre) && joueurEntrant.aDesSous(10));
 	}
+	
+	public void changerJeu(Jeu nouveauJeu) {
+		jeu = nouveauJeu;
+		System.out.printf("\nLe casino \"%s\" propose désormais le jeu suivant:%s\n", nom, jeu);
+	}
+	
 
 	public String toString() {
 
