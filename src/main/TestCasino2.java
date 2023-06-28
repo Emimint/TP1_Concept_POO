@@ -5,6 +5,7 @@ import casinos.CasinoClandestin;
 import casinos.CasinoLegal;
 import jeux.Jeu;
 import jeux.LotoQuebec;
+import jeux.PileOuFace;
 import joueurs.Joueur;
 import joueurs.JoueurPauvre;
 import joueurs.JoueurRiche;
@@ -574,6 +575,22 @@ public class TestCasino2 {
 		System.out.println(casinoBasFonds);
 		
 		System.out.println("\n-----------*8*-----------");
+		
+		casinoBasFonds.jouer(10);
+		System.out.println("\n-----------*9*-----------");
+		
+		casinoBasFonds.changerJeu(new PileOuFace());
+		
+		System.out.println("\n-----------*10*-----------");
+		
+		casinoBasFonds.setCapital(1000000);
+		joueur1.setCapital(500);
+		joueur2.setCapital(500);
+		joueur3.setCapital(500);
+		
+		System.out.println(casinoBasFonds);
+		
+		System.out.println("\n-----------*11*-----------");
 		
 		casinoBasFonds.jouer(10);
 
