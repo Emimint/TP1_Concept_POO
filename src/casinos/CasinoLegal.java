@@ -1,5 +1,6 @@
 package casinos;
 
+import jeux.Jeu;
 import joueurs.Joueur;
 
 public class CasinoLegal extends Casino {
@@ -24,8 +25,17 @@ public class CasinoLegal extends Casino {
 		super(nom, maxJoueurs);
 		peutJouer = true;
 	}
+	
+	public CasinoLegal(int maxJoueurs, Jeu jeu) {
+		this("salle", maxJoueurs, jeu);
+		this.setNom(this.getNom() + "_" + nbrCasinosCrees);
+	}
+	
+	public CasinoLegal(String nom, int maxJoueurs, Jeu jeu) {
+		this(nom, maxJoueurs);
+		setJeu(jeu);
+	}
 
-	@Override
 	public void payerImpots() {
 		System.out.println("Pas de chance! C'est le jour des impots :( ...");
 		super.setCapital((int) (super.getCapital() * 0.85));
@@ -47,5 +57,10 @@ public class CasinoLegal extends Casino {
 		} else
 			System.out.printf("\nLe concert n'est pas fini, le joueur \"%s\" ne joue pas.\n", joueur.getNom());
 	}
+
 	
+	public boolean isPeutJouer() {
+		return peutJouer;
+	}
+
 }

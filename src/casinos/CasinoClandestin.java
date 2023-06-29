@@ -1,5 +1,6 @@
 package casinos;
 
+import jeux.Jeu;
 import joueurs.Joueur;
 
 public class CasinoClandestin extends Casino {
@@ -19,8 +20,15 @@ public class CasinoClandestin extends Casino {
 	public CasinoClandestin(String nom, int maxJoueurs) {
 		super(nom, maxJoueurs);
 	}
+	
+	public CasinoClandestin(int maxJoueurs, Jeu jeu) {
+		super(maxJoueurs, jeu);
+	}
+	
+	public CasinoClandestin(String nom, int maxJoueurs, Jeu jeu) {
+		super(nom, maxJoueurs, jeu);
+	}
 
-	@Override
 	public void payerImpots() {
 		int chance = (int) ((100 * Math.random()) + 1);
 		System.out.println("chance = " + chance);

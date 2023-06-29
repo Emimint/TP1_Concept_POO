@@ -1,6 +1,7 @@
 package casinos;
 
 import jeux.Jeu;
+import jeux.PileOuFace;
 import jeux.LotoQuebec;
 import jeux.Roulette;
 import joueurs.Joueur;
@@ -37,7 +38,12 @@ public abstract class Casino implements Comparable<Casino>, ImpotsFonciers {
 	}
 
 	public Casino(String nom, int maxJoueurs) {
-		this(nom, maxJoueurs, new Roulette());
+		this(nom, maxJoueurs, new PileOuFace());
+	}
+	
+	public Casino(int maxJoueurs, Jeu jeu) {
+		this("salle", maxJoueurs, jeu);
+		this.nom = this.nom + "_" + nbrCasinosCrees;
 	}
 	
 	public Casino(String nom, int maxJoueurs, Jeu jeu) {
@@ -160,10 +166,11 @@ public abstract class Casino implements Comparable<Casino>, ImpotsFonciers {
 	}
 	
 	public void changerJeu(Jeu nouveauJeu) {
-		jeu = nouveauJeu;
-		System.out.printf("\nLe casino \"%s\" propose désormais le jeu suivant:%s\n", nom, jeu);
+		setJeu(nouveauJeu);
+		System.out.printf("\nLe casino \"%s\" propose désormais le jeu suivant:\n%s\n", nom, jeu);
 	}
 	
+
 
 	public String toString() {
 
@@ -171,7 +178,7 @@ public abstract class Casino implements Comparable<Casino>, ImpotsFonciers {
 
 		chaine = String.format("Le casino s'apelle \"%s\". Il a une capacité maximale de %d joueur(s). ", nom,
 				joueurs.length);
-		chaine += String.format("Présentement, ce casino propose ce jeu:\n \"%s\"\n", jeu);
+		chaine += String.format("Présentement, ce casino propose ce jeu:\n\n %s\n", jeu);
 
 		if (capital > 0) {
 			chaine += String.format("\nLe capital actuel de ce casino est de %d$. ", capital);
@@ -227,6 +234,10 @@ public abstract class Casino implements Comparable<Casino>, ImpotsFonciers {
 
 	public Jeu getJeu() {
 		return jeu;
+	}
+	
+	public void setJeu(Jeu jeu) {
+		this.jeu = jeu;
 	}
 
 	public String getNomJeu() {
