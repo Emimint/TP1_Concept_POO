@@ -9,8 +9,9 @@ public class Test {
 		PileOuFace destin = new PileOuFace();
 		PileOuFace destin1 = new PileOuFace(destin);
 		
-		Jeu jeu = new JeuSimple();
+		JeuSimple jeu = new JeuSimple();
 		
+
 
 
 //		for (String pari : Roulette.cheval) {
@@ -58,11 +59,22 @@ public class Test {
 //		
 //		destin.calculerGains(1000);
 //		
-		System.out.println(jeu);
-		
-		jeu.faireUnTirage();
+//		System.out.println(jeu);
 //		
-		jeu.calculerGains(1000);
+//		jeu.faireUnTirage();
+////		
+//		jeu.calculerGains(1000);
+		
+		
+		JeuSimple jeu2 = new JeuSimple(10, 6);
+		
+		Jeu loto1 = jeu2;
+		
+		((JeuSimple)loto1).faireUnTirage();
+		loto1.faireUnTirage();
+//		
+		((JeuSimple)loto1).calculerGains(1000);
+		loto1.calculerGains(1000);
 		
 		
 		
