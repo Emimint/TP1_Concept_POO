@@ -1,6 +1,6 @@
 package jeux;
 
-public abstract class JeuSimple extends Jeu {
+public class JeuSimple extends Jeu {
 
 	// variables propres à un jeu de tirages multiples:
 	private int nbrResultats; // nombre de résultats attendus
@@ -8,33 +8,55 @@ public abstract class JeuSimple extends Jeu {
 	private int[] resultats; // tableau des résultats à remplir dans la classe Casino
 
 	public JeuSimple() {
-		this("jeu", 3, 6);
-		setNom(this.getNom() + "_" + nbrJeuxCrees);
-	}
-
-	public JeuSimple(String nom) {
-		this(nom, 3, 6);
+		this(3, 6);
 	}
 
 	public JeuSimple(JeuSimple autre) {
-		this(autre.getNom(), autre.getNbrResultats(), autre.getChampResultat());
+		this(autre.getNbrResultats(), autre.getChampResultat());
 	}
 
-	public JeuSimple(String nom, int nbrResultats, int champResultat) {
-		nbrJeuxCrees++;
-
-		setNom(nom);
+	public JeuSimple(int nbrResultats, int champResultat) {
+		setNom("jeu_simple");
 		this.nbrResultats = nbrResultats;
 		this.champResultat = champResultat;
 		resultats = new int[nbrResultats];
 	}
-	
+
 	/*
 	 * Fait un tirage; les résultats sont stockés dans le tableau des résultats.
 	 * C'est dans le casino qu'on appelle cette méthode.
 	 */
 	public void faireUnTirage() {
 		genererNumeros(resultats);
+//		afficherNumeros(resultats, ",");
+	}
+
+	public int calculerGains(int mise) {
+
+		int gains, gainsReels, numerosTrouves;
+		int[] resultatsJoueur = new int[nbrResultats];
+		double ratio = 0.5; // remise des gains
+
+		System.out.printf("Vous avez mise %d$.\n", mise);
+		System.out.println("Resultats du tirage:");
+		afficherNumeros(resultats, ", ");
+
+		resultatJoueur(resultatsJoueur);
+
+		System.out.println("\n\nResultats du joueur:");
+		afficherNumeros(resultatsJoueur, ", ");
+		
+		System.out.println();
+
+		numerosTrouves = resultatTirage(resultatsJoueur, resultats);
+
+		gains = (int) (numerosTrouves > 0 ? mise * numerosTrouves * ratio : 0);
+		gainsReels = gains - mise;
+
+		System.out.printf("\nTotal des gains: %d$ (Gains: %d$ - Mise: %d$), car vous avez trouve %d numéro(s).\n",
+				gainsReels, gains, mise, numerosTrouves);
+
+		return gains;
 	}
 
 	/*
@@ -46,14 +68,13 @@ public abstract class JeuSimple extends Jeu {
 	public void resultatJoueur(int[] tab) {
 		genererNumeros(tab);
 	}
-	
-	
+
 	public void genererNumeros(int[] tab) {
-		
+
 		int ctr = 0;
 
 		while (ctr < tab.length) {
-
+			
 			int choixNum = getRandom(1, champResultat);
 
 			if (!trouve(choixNum, tab)) {
@@ -100,20 +121,25 @@ public abstract class JeuSimple extends Jeu {
 		}
 		return nbrTrouves;
 	}
-	
+
+	public String toString() {
+		return "Jeu [" + getNom() + "]:\n"
+				+ String.format("Dans ce jeu, choississez un chiffre entre 1 et %d.\n", champResultat)
+				+ String.format("Le croupier fait %d tirages.\n", nbrResultats)
+				+ "Gains: vous gagnez la moitie de votre mise autant de fois que vous trouvez votre numero au tirage.";
+	}
+
 	public boolean equals(JeuSimple autre) {
-		if (!this.getNom().equalsIgnoreCase(autre.getNom())) {
-			return false;
-		}
-		if (this.nbrResultats != autre.nbrResultats) {
-			return false;
-		}
-		if (this.champResultat != autre.champResultat) {
-			return false;
+		if (super.equals(autre)) {
+			if (this.nbrResultats != autre.nbrResultats) {
+				return false;
+			}
+			if (this.champResultat != autre.champResultat) {
+				return false;
+			}
 		}
 		return true;
 	}
-	
 
 	public int getNbrResultats() {
 		return nbrResultats;
