@@ -27,35 +27,30 @@ public class TestCasino2 {
 
 		Casino casino1 = new CasinoLegal();
 		System.out.println(casino1);
-		System.out.printf("Il y a %d jeux crées.\n", Jeu.nbrJeuxCrees);
 
 		System.out.println("\n-------------------------");
 		System.out.println("------------2------------\n");
 
 		Casino casino2 = new CasinoLegal(10);
 		System.out.println(casino2);
-		System.out.printf("Il y a %d jeux crées.\n", Jeu.nbrJeuxCrees);
 
 		System.out.println("\n-------------------------");
 		System.out.println("------------3------------\n");
 
 		Casino casino3 = new CasinoLegal(casino1);
 		System.out.println(casino3);
-		System.out.printf("Il y a %d jeux crées.\n", Jeu.nbrJeuxCrees);
 
 		System.out.println("\n-------------------------");
 		System.out.println("------------4------------\n");
 
 		Casino casino4 = new CasinoLegal("Salle_roulette", 5);
 		System.out.println(casino4);
-		System.out.printf("Il y a %d jeux crées.\n", Jeu.nbrJeuxCrees);
 
 		System.out.println("\n-------------------------");
 		System.out.println("------------5------------\n");
 
 		Casino casino5 = new CasinoLegal("BelleArnaque", 6, new Roulette());
 		System.out.println(casino5);
-		System.out.printf("Il y a %d jeux crées.\n", Jeu.nbrJeuxCrees);
 
 		System.out.println("\n-------------------------");
 		System.out.printf("Il y a %d casinos crées.\n", Casino.nbrCasinosCrees);
