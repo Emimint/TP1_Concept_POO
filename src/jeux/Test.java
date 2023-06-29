@@ -7,6 +7,11 @@ public class Test {
 		Roulette roulette = new Roulette();
 		LotoQuebec loto = new LotoQuebec();
 		PileOuFace destin = new PileOuFace();
+		PileOuFace destin1 = new PileOuFace(destin);
+		
+		Jeu jeu = new JeuSimple();
+		
+
 
 //		for (String pari : Roulette.cheval) {
 //			System.out.println(pari);
@@ -29,13 +34,13 @@ public class Test {
 
 //		int res = ((Roulette) roulette).getRandom(0, 5);
 //		((Roulette) roulette).getVoisins(Roulette.chiffresRoue, res);
-
+//
 //		roulette.faireUnTirage();
 ////		
 //		roulette.calculerGains(100);
 		
 //		roulette.afficherDetailsGains();
-//		
+		
 //		System.out.println(roulette);
 		
 		
@@ -46,12 +51,19 @@ public class Test {
 //		loto.faireUnTirage();
 //		
 //		loto.calculerGains(1000);
+//		
+//		System.out.println(destin);
+//		
+//		destin.faireUnTirage();
+//		
+//		destin.calculerGains(1000);
+//		
+		System.out.println(jeu);
 		
-		System.out.println(destin);
+		jeu.faireUnTirage();
+//		
+		jeu.calculerGains(1000);
 		
-		destin.faireUnTirage();
-		
-		destin.calculerGains(1000);
 		
 		
 		
