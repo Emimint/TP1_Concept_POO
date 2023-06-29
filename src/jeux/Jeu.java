@@ -4,21 +4,17 @@ public abstract class Jeu {
 
 	private String nom;
 
-	public static int nbrJeuxCrees;
-
 	//// **** METHODES ABSTRAITES **** ////
-	
+
 	/*
 	 * prend la mise d'un joueur et retourne ses gains
 	 */
 	public abstract void faireUnTirage();
-	
+
 	public abstract int calculerGains(int mise);
-	
+
 	public abstract String toString();
-	
-	
-	
+
 	//// **** METHODES CONCRETES **** ////
 
 	public void afficherNumeros(int[] tab, String delimiteur) {
@@ -28,7 +24,6 @@ public abstract class Jeu {
 				System.out.print(delimiteur);
 		}
 	}
-
 
 	/*
 	 * trie les valeurs d'un tableau par ordre croissant.
@@ -45,11 +40,13 @@ public abstract class Jeu {
 		}
 	}
 
+	public boolean equals(Jeu autre) {
+		return (this.nom).equalsIgnoreCase(autre.nom);
+	}
 
 	public int getRandom(int min, int max) {
 		return min + (int) (Math.random() * (max - min + 1));
 	}
-
 
 	public String getNom() {
 		return nom;

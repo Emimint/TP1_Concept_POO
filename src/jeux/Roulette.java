@@ -41,6 +41,10 @@ public final class Roulette extends Jeu {
 	private String strCouleur;
 	private int resultatChiffre;
 	private ArrayList<Object> resultatDuJoueur;
+	
+	public Roulette() {
+		setNom("roulette");
+	}
 
 	public void faireUnTirage() {
 
@@ -413,7 +417,7 @@ public final class Roulette extends Jeu {
 	}
 
 	public String toString() {
-		return "\n\nRoulette Francaise:\n" + "====================\n"
+		return "\n\nRoulette Francaise:\n" + "===================\n"
 				+ "Choississez une combinaison de couleur (noir ou rouge) et/ou de chiffres (de 0 à 36). "
 				+ "Faites un choix de mises à placer sur le tapis (voir tableau des mises).\n"
 				+ "Attention! Une fois que le croupier a lancé la bille, vous ne pouvez plus parier.\n";
