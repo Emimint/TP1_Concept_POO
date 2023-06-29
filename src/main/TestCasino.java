@@ -68,9 +68,10 @@ public class TestCasino {
 
 		System.out.println("\n-------------------------\n");
 
+		System.exit(0);
+
 		((JeuSimple)loto).faireUnTirage();
 		
-		System.exit(0);
 		loto.calculerGains(150);
 
 		loto.faireUnTirage();
