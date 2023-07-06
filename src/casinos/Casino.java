@@ -1,12 +1,13 @@
 package casinos;
 
+import joueurs.Joueur;
+import joueurs.JoueurPauvre;
+import joueurs.JoueurRiche;
+
 import jeux.Jeu;
 import jeux.PileOuFace;
 import jeux.LotoQuebec;
 import jeux.Roulette;
-import joueurs.Joueur;
-import joueurs.JoueurPauvre;
-import joueurs.JoueurRiche;
 
 public abstract class Casino implements Comparable<Casino>, ImpotsFonciers {
 
@@ -40,12 +41,12 @@ public abstract class Casino implements Comparable<Casino>, ImpotsFonciers {
 	public Casino(String nom, int maxJoueurs) {
 		this(nom, maxJoueurs, new PileOuFace());
 	}
-	
+
 	public Casino(int maxJoueurs, Jeu jeu) {
 		this("salle", maxJoueurs, jeu);
 		this.nom = this.nom + "_" + nbrCasinosCrees;
 	}
-	
+
 	public Casino(String nom, int maxJoueurs, Jeu jeu) {
 		nbrCasinosCrees++;
 		this.nom = nom;
@@ -152,25 +153,27 @@ public abstract class Casino implements Comparable<Casino>, ImpotsFonciers {
 	}
 
 	public int compareTo(Casino autre) {
-		if (capital == autre.capital)
+		if (capital == autre.capital) {
+			System.out.println("Les deux casinos ont le même capital.");
 			return 0;
-		else if (capital > autre.capital)
-			return 1;
-		else
-			return -1;
+		} else if (capital > autre.capital) {
+			System.out.printf("Le casino %s a plus d'argent que le casino %s.\n", this.nom, autre.nom);
+			return capital - autre.capital;
+		} else {
+			System.out.printf("Le casino %s a plus d'argent que le casino %s.\n", autre.nom, this.nom);
+			return capital - autre.capital;
+		}
 	}
 
 	public boolean aDesSous(Joueur joueurEntrant) {
 		return ((joueurEntrant instanceof JoueurRiche) && joueurEntrant.aDesSous(1000))
 				|| ((joueurEntrant instanceof JoueurPauvre) && joueurEntrant.aDesSous(10));
 	}
-	
+
 	public void changerJeu(Jeu nouveauJeu) {
 		setJeu(nouveauJeu);
 		System.out.printf("\nLe casino \"%s\" propose désormais le jeu suivant:\n%s\n", nom, jeu);
 	}
-	
-
 
 	public String toString() {
 
@@ -235,7 +238,7 @@ public abstract class Casino implements Comparable<Casino>, ImpotsFonciers {
 	public Jeu getJeu() {
 		return jeu;
 	}
-	
+
 	public void setJeu(Jeu jeu) {
 		this.jeu = jeu;
 	}
