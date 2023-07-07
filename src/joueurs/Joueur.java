@@ -100,12 +100,17 @@ public abstract class Joueur implements Comparable<Joueur> {
 	}
 
 	public int compareTo(Joueur autre) {
-		if (((capital == autre.capital) && (nom.compareTo(autre.getNom()) < 0)) || capital > autre.capital)
+		if (((capital == autre.capital) && (nom.compareTo(autre.getNom()) > 0)) || capital > autre.capital) {
+			System.out.printf("Le joueur \"%s\" a plus d'argent que le joueur \"%s\".\n", this.getNom(),
+					autre.getNom());
 			return 1;
-		else if (capital < autre.capital)
+		} else if (((capital == autre.capital) && (nom.compareTo(autre.getNom()) < 0)) || capital < autre.capital) {
+			System.out.printf("Le joueur \"%s\" a plus d'argent que le joueur \"%s\".\n", autre.getNom(),
+					this.getNom());
 			return -1;
-		else
-			return 0;
+		} else
+			System.out.printf("Les deux joueurs ont le même capital.\n");
+		return 0;
 	}
 
 	public String toString() {
