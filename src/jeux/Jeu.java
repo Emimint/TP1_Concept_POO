@@ -40,7 +40,17 @@ public abstract class Jeu {
 		}
 	}
 
-	public boolean equals(Jeu autre) {
+	public boolean equals(Jeu obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if (getClass() != obj.getClass()) {
+			return false;
+		}
+		Jeu autre = (Jeu) obj;
 		return (this.nom).equalsIgnoreCase(autre.nom);
 	}
 
