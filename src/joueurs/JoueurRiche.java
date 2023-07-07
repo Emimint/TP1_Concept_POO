@@ -23,9 +23,10 @@ public class JoueurRiche extends Joueur{
 	}
 	
 	public void banqueRoute() {
-		System.out.println("Le gouvernement a tout saisi :( !");
+		System.out.println("Le gouvernement a tout saisi : vos investissements à l’étranger ont ete saisis par le gouvernement\n"
+				+ "et vos comptes dans les paradis fiscaux sont fermés...");
 		setCapital(0);
 		quitterCasino();
-		System.out.printf("Le joueur %s a maintenant un capital de %d$...\n", getNom(), getCapital());
+		System.out.printf("Le joueur %s a maintenant un capital de %d$.\n", getNom(), getCapital());
 	}
 }

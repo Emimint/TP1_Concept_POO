@@ -39,7 +39,7 @@ public abstract class Joueur implements Comparable<Joueur> {
 		this.nom = nom;
 		this.capital = capital;
 		if (capital < 100000)
-			this.capital = +500;
+			this.capital += 500;
 		this.joueurID = ++nbrJoueursCrees;
 	}
 

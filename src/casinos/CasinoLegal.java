@@ -1,7 +1,8 @@
 package casinos;
 
-import jeux.Jeu;
 import joueurs.Joueur;
+
+import jeux.Jeu;
 
 public class CasinoLegal extends Casino {
 
@@ -37,7 +38,7 @@ public class CasinoLegal extends Casino {
 	}
 
 	public void payerImpots() {
-		System.out.println("Pas de chance! C'est le jour des impots :( ...");
+		System.out.println("Pas de chance! C'est le jour des impots :( ...\n");
 		super.setCapital((int) (super.getCapital() * 0.85));
 	}
 

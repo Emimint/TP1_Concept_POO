@@ -1,7 +1,6 @@
 package casinos;
 
 import jeux.Jeu;
-import joueurs.Joueur;
 
 public class CasinoClandestin extends Casino {
 
@@ -31,10 +30,11 @@ public class CasinoClandestin extends Casino {
 
 	public void payerImpots() {
 		int chance = (int) ((100 * Math.random()) + 1);
-		System.out.println("chance = " + chance);
 		if (chance >= 99) {
 			System.out.println("Pas de chance! C'est le jour des impots :( ...");
 			super.setCapital((int) (super.getCapital() * 0.5));
+		} else {
+			System.out.println("Quelle chance! Pas d'impots a payer :) !\n");
 		}
 	}
 
