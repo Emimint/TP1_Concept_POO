@@ -199,20 +199,36 @@ public abstract class Casino implements Comparable<Casino>, ImpotsFonciers {
 		return chaine;
 	}
 
-	public boolean equals(Casino autre) {
-		if (!this.nom.equalsIgnoreCase(autre.nom)) {
+	public boolean equals(Object obj) {
+
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
 			return false;
 		}
-		if (this.capital != autre.capital) {
+		if (getClass() != obj.getClass()) {
 			return false;
 		}
-		if (this.joueurs.length != autre.joueurs.length) {
-			return false;
-		}
-		if (!this.jeu.equals(autre.jeu)) {
-			return false;
-		}
-		return true;
+		Casino autre = (Casino) obj;
+
+		return this.nom.equalsIgnoreCase(autre.nom) && this.capital == autre.capital
+				&& this.joueurs.length == autre.joueurs.length && !this.jeu.equals(autre.jeu);
+
+///////Alternative code (previous):		
+//		if (!this.nom.equalsIgnoreCase(autre.nom)) {
+//			return false;
+//		}
+//		if (this.capital != autre.capital) {
+//			return false;
+//		}
+//		if (this.joueurs.length != autre.joueurs.length) {
+//			return false;
+//		}
+//		if (!this.jeu.equals(autre.jeu)) {
+//			return false;
+//		}
+//		return true;
 	}
 
 	public String getNom() {
