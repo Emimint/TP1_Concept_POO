@@ -6,10 +6,6 @@ public final class LotoQuebec extends JeuSimple {
 		super(6, 49);
 	}
 
-	public LotoQuebec(LotoQuebec autre) {
-		super(autre);
-	}
-
 	public int calculerGains(int mise) {
 
 		int gains = 0, numerosTrouves, gainsTotals = 0;

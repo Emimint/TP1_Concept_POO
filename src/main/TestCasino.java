@@ -4,6 +4,7 @@ import casinos.Casino;
 import casinos.CasinoClandestin;
 import casinos.CasinoLegal;
 import joueurs.Joueur;
+import joueurs.JoueurPauvre;
 import joueurs.JoueurRiche;
 import jeux.Jeu;
 import jeux.JeuSimple;
@@ -44,17 +45,19 @@ public class TestCasino {
 
 		System.out.println("1er cas: " + jeu1.equals(jeu3));
 
-		jeu1.setNom("roulette");
-
-		System.out.println("2ème cas: " + jeu1.equals(jeu3));
-
-		jeu3.setNom("Roulette");
-
-		System.out.println("3ème cas: " + jeu1.equals(jeu3));
+		/*
+		 * // Le setter du nom du jeu n'existe plus: jeu1.setNom("roulette");
+		 * 
+		 * System.out.println("2ème cas: " + jeu1.equals(jeu3));
+		 * 
+		 * jeu3.setNom("Roulette");
+		 * 
+		 * System.out.println("3ème cas: " + jeu1.equals(jeu3));
+		 */
 
 		jeu1.faireUnTirage();
 
-		System.out.println("4ème cas: " + jeu1.equals(jeu3));
+		System.out.println("4ème cas: " + jeu1.equals(jeu2));
 
 		System.out.println("\n**************************************************");
 		System.out.println("****  Tests pour méthode Jeu.calculerGains()  ****");
@@ -62,28 +65,21 @@ public class TestCasino {
 
 		System.out.println("\n----------------*1*--------------\n");
 
-		Jeu loto = jeu2;
-
-		System.out.println(loto);
+		System.out.println(jeu2);
 
 		System.out.println("\n-------------------------\n");
 
-		System.exit(0);
+		jeu2.faireUnTirage();
 
-		((JeuSimple)loto).faireUnTirage();
-		
-		loto.calculerGains(150);
+		jeu2.calculerGains(150);
 
-		loto.faireUnTirage();
-		
-
-
+		jeu2.faireUnTirage();
 
 		System.out.println("\n----------------*2*--------------\n");
 
-		loto.faireUnTirage();
+		jeu2.faireUnTirage();
 
-		loto.calculerGains(100);
+		jeu2.calculerGains(100);
 
 		System.out.println("\n**********************************************");
 		System.out.println("************ Tests pour classe Casino ********");
@@ -152,44 +148,44 @@ public class TestCasino {
 		System.out.println("\n-------------------------");
 		System.out.println("------------1------------\n");
 
-		Joueur joueur1 = new JoueurRiche();
+		Joueur joueur1 = new JoueurRiche(5000);
 		System.out.println(joueur1);
-		System.out.printf("Il y a %d joueurs crées.\n", Joueur.nbrJoueursCrees);
+		System.out.printf("Il y a %d joueurs crées.\n", Joueur.getNbrJoueursCrees());
 
 		System.out.println("\n-------------------------");
 		System.out.println("------------2------------\n");
 
-		Joueur joueur2 = new JoueurRiche("Mouli");
+		Joueur joueur2 = new JoueurPauvre("Mouli");
 		System.out.println(joueur2);
-		System.out.printf("Il y a %d joueurs crées.\n", Joueur.nbrJoueursCrees);
+		System.out.printf("Il y a %d joueurs crées.\n", Joueur.getNbrJoueursCrees());
 
 		System.out.println("\n-------------------------");
 		System.out.println("------------3------------\n");
 
-		Joueur joueur3 = new JoueurRiche(2000);
+		Joueur joueur3 = new JoueurPauvre(20000);
 		System.out.println(joueur3);
-		System.out.printf("Il y a %d joueurs crées.\n", Joueur.nbrJoueursCrees);
+		System.out.printf("Il y a %d joueurs crées.\n", Joueur.getNbrJoueursCrees());
 
 		System.out.println("\n-------------------------");
 		System.out.println("------------4------------\n");
 
-		Joueur joueur4 = new JoueurRiche("Mimi", 2500);
+		Joueur joueur4 = new JoueurRiche("Mimi", 25000);
 		System.out.println(joueur4);
-		System.out.printf("Il y a %d joueurs crées.\n", Joueur.nbrJoueursCrees);
+		System.out.printf("Il y a %d joueurs crées.\n", Joueur.getNbrJoueursCrees());
 
 		System.out.println("\n-------------------------");
 		System.out.println("------------5------------\n");
 
-		Joueur joueur5 = new JoueurRiche(joueur1);
+		Joueur joueur5 = new JoueurPauvre(joueur1);
 		System.out.println(joueur5);
-		System.out.printf("Il y a %d joueurs crées.\n", Joueur.nbrJoueursCrees);
+		System.out.printf("Il y a %d joueurs crées.\n", Joueur.getNbrJoueursCrees());
 
 		System.out.println("\n-------------------------");
 		System.out.println("------------6------------\n");
 
-		Joueur joueur6 = new JoueurRiche("Kevin");
+		Joueur joueur6 = new JoueurPauvre("Kevin");
 		System.out.println(joueur6);
-		System.out.printf("Il y a %d joueurs crées.\n", Joueur.nbrJoueursCrees);
+		System.out.printf("Il y a %d joueurs crées.\n", Joueur.getNbrJoueursCrees());
 
 		System.out.println("\n--------------------- 2 ------------------");
 		System.out.println("-------- getters, setters, equals --------\n");
@@ -343,18 +339,22 @@ public class TestCasino {
 		System.out.println("------------2------------\n");
 
 		joueur5.setCapital(1000);
-		joueur5.getCasino().getJeu().faireUnTirage();
-		joueur5.jouer(150);
+		if (joueur5.aUnCasino()) {
+			joueur5.getCasino().getJeu().faireUnTirage();
+			joueur5.jouer(150);
+		}
 
 		System.out.println("\n-------------------------");
 		System.out.println("------------3------------\n");
 
 		System.out.println(joueur4);
+		System.out.println(joueur4.getCasino());
 
 		System.out.println("\n-------------------------");
-		joueur4.getCasino().getJeu().faireUnTirage();
-		joueur4.jouer(150);
-
+		if (joueur4.aUnCasino()) {
+			joueur4.getCasino().getJeu().faireUnTirage();
+			joueur4.jouer(150);
+		}
 		System.out.println("\n-------------------------");
 		System.out.println("------------4------------\n");
 

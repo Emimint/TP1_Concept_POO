@@ -10,16 +10,21 @@ public class JeuSimple extends Jeu {
 	public JeuSimple() {
 		this(3, 6);
 	}
-	
+
 	public JeuSimple(JeuSimple autre) {
 		this(autre.getNbrResultats(), autre.getChampResultat());
 	}
 
+	/*
+	 * Si le nombre de resultats surpasse le champ de
+	 * resultats possibles, il est automatiquement divisee
+	 * par deux, 1 etant la plus petite valeur possible.
+	 */
 	public JeuSimple(int nbrResultats, int champResultat) {
 		super();
-		this.nbrResultats = nbrResultats;
+		this.nbrResultats = nbrResultats >= champResultat ? (champResultat / 2) + 1 : nbrResultats;
 		this.champResultat = champResultat;
-		resultats = new int[nbrResultats];
+		resultats = new int[this.nbrResultats];
 	}
 
 	/*
@@ -28,7 +33,6 @@ public class JeuSimple extends Jeu {
 	 */
 	public void faireUnTirage() {
 		genererNumeros(resultats);
-//		afficherNumeros(resultats, ",");
 	}
 
 	public int calculerGains(int mise) {

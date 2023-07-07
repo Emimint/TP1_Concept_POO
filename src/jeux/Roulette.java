@@ -22,11 +22,11 @@ public final class Roulette extends Jeu {
 	public static int[] tiersDuCylindre = { 27, 13, 36, 11, 30, 8, 23, 10, 5, 24, 16, 33 };
 	public static int[] orphelins = { 17, 34, 6, 1, 20, 14, 31, 9 };
 
-	int[] premiereColonne = { 1, 4, 7, 10, 13, 16, 19, 22, 25, 28, 31, 34 };
-	int[] deuxiemeColonne = { 2, 5, 8, 11, 14, 17, 20, 23, 26, 29, 32, 35 };
-	int[] troisiemeColonne = { 3, 6, 9, 12, 15, 18, 21, 24, 27, 30, 33, 36 };
+	public static int[] premiereColonne = { 1, 4, 7, 10, 13, 16, 19, 22, 25, 28, 31, 34 };
+	public static int[] deuxiemeColonne = { 2, 5, 8, 11, 14, 17, 20, 23, 26, 29, 32, 35 };
+	public static int[] troisiemeColonne = { 3, 6, 9, 12, 15, 18, 21, 24, 27, 30, 33, 36 };
 
-	int[][] lesColonnes = { premiereColonne, deuxiemeColonne, troisiemeColonne };
+	public static int[][] lesColonnes = { premiereColonne, deuxiemeColonne, troisiemeColonne };
 
 	public static String[] typeDeParis = { "couleur", "simple", "parité", "moitié de cylindre", "les douzaines",
 			"paris sur les voisins" };
@@ -41,6 +41,7 @@ public final class Roulette extends Jeu {
 	private String strCouleur;
 	private int resultatChiffre;
 	private ArrayList<Object> resultatDuJoueur;
+	
 
 	public void faireUnTirage() {
 

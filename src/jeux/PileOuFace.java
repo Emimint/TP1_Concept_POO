@@ -8,10 +8,6 @@ public final class PileOuFace extends JeuSimple {
 		super(1, 2);
 	}
 
-	public PileOuFace(PileOuFace autre) {
-		super(autre);
-	}
-
 	public void faireUnTirage() {
 		
 		super.faireUnTirage();
