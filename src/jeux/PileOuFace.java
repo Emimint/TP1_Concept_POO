@@ -1,17 +1,15 @@
 package jeux;
 
-public class PileOuFace extends JeuSimple {
+public final class PileOuFace extends JeuSimple {
 
 	String resultat;
 
 	public PileOuFace() {
 		super(1, 2);
-		setNom("pile_ou_face");
 	}
 
 	public PileOuFace(PileOuFace autre) {
 		super(autre);
-		setNom("pile_ou_face");
 	}
 
 	public void faireUnTirage() {

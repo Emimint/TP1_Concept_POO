@@ -11,7 +11,7 @@ public abstract class Joueur implements Comparable<Joueur> {
 	private int joueurID;
 	private Casino casino;
 
-	public static int nbrJoueursCrees;
+	private static int nbrJoueursCrees;
 
 	public Joueur() {
 		this("Joueur", 100);
@@ -127,17 +127,19 @@ public abstract class Joueur implements Comparable<Joueur> {
 		return chaine;
 	}
 
-	public boolean equals(Joueur autre) {
-		if (!this.nom.equalsIgnoreCase(autre.nom)) {
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
 			return false;
 		}
-		if (this.capital != autre.capital) {
+		if (getClass() != obj.getClass()) {
 			return false;
 		}
-		if (this.joueurID != autre.joueurID) {
-			return false;
-		}
-		return true;
+		Joueur autre = (Joueur) obj;
+
+		return this.joueurID == autre.joueurID;
 	}
 
 	public String getNom() {
@@ -163,4 +165,9 @@ public abstract class Joueur implements Comparable<Joueur> {
 	public Casino getCasino() {
 		return casino;
 	}
+
+	public static int getNbrJoueursCrees() {
+		return nbrJoueursCrees;
+	}
+
 }

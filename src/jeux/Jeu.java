@@ -1,8 +1,19 @@
 package jeux;
 
+/**********************************************
+ *              /!\ NOTICE /!\
+ * if creating new subclasses, the classes' name 
+ * should be the real game's name (eg. "Monopoly", 
+ * "SlotMachine","BlackJack", ect...):
+ **********************************************/
+
 public abstract class Jeu {
 
 	private String nom;
+
+	public Jeu() {
+		this.nom = this.getClass().getSimpleName();
+	}
 
 	//// **** METHODES ABSTRAITES **** ////
 
@@ -40,7 +51,7 @@ public abstract class Jeu {
 		}
 	}
 
-	public boolean equals(Jeu obj) {
+	public boolean equals(Object obj) {
 		if (this == obj) {
 			return true;
 		}
@@ -51,7 +62,7 @@ public abstract class Jeu {
 			return false;
 		}
 		Jeu autre = (Jeu) obj;
-		return (this.nom).equalsIgnoreCase(autre.nom);
+		return nom.equals(autre.nom);
 	}
 
 	public int getRandom(int min, int max) {
@@ -61,9 +72,4 @@ public abstract class Jeu {
 	public String getNom() {
 		return nom;
 	}
-
-	public void setNom(String nom) {
-		this.nom = nom;
-	}
-
 }

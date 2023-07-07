@@ -1,15 +1,13 @@
 package jeux;
 
-public class LotoQuebec extends JeuSimple {
+public final class LotoQuebec extends JeuSimple {
 
 	public LotoQuebec() {
 		super(6, 49);
-		setNom("loto_quebec");
 	}
 
 	public LotoQuebec(LotoQuebec autre) {
 		super(autre);
-		setNom("loto_quebec");
 	}
 
 	public int calculerGains(int mise) {

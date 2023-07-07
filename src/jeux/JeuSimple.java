@@ -10,13 +10,13 @@ public class JeuSimple extends Jeu {
 	public JeuSimple() {
 		this(3, 6);
 	}
-
+	
 	public JeuSimple(JeuSimple autre) {
 		this(autre.getNbrResultats(), autre.getChampResultat());
 	}
 
 	public JeuSimple(int nbrResultats, int champResultat) {
-		setNom("jeu_simple");
+		super();
 		this.nbrResultats = nbrResultats;
 		this.champResultat = champResultat;
 		resultats = new int[nbrResultats];
@@ -45,7 +45,7 @@ public class JeuSimple extends Jeu {
 
 		System.out.println("\n\nResultats du joueur:");
 		afficherNumeros(resultatsJoueur, ", ");
-		
+
 		System.out.println();
 
 		numerosTrouves = resultatTirage(resultatsJoueur, resultats);
@@ -74,7 +74,7 @@ public class JeuSimple extends Jeu {
 		int ctr = 0;
 
 		while (ctr < tab.length) {
-			
+
 			int choixNum = getRandom(1, champResultat);
 
 			if (!trouve(choixNum, tab)) {
@@ -129,16 +129,9 @@ public class JeuSimple extends Jeu {
 				+ "Gains: vous gagnez la moitie de votre mise autant de fois que vous trouvez votre numero au tirage.";
 	}
 
-	public boolean equals(JeuSimple autre) {
-		if (super.equals(autre)) {
-			if (this.nbrResultats != autre.nbrResultats) {
-				return false;
-			}
-			if (this.champResultat != autre.champResultat) {
-				return false;
-			}
-		}
-		return true;
+	public boolean equals(Object obj) {
+		return super.equals(obj) && this.nbrResultats == ((JeuSimple) obj).nbrResultats
+				&& this.champResultat == ((JeuSimple) obj).champResultat;
 	}
 
 	public int getNbrResultats() {

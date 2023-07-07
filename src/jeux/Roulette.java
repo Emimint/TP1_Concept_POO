@@ -41,10 +41,6 @@ public final class Roulette extends Jeu {
 	private String strCouleur;
 	private int resultatChiffre;
 	private ArrayList<Object> resultatDuJoueur;
-	
-	public Roulette() {
-		setNom("roulette");
-	}
 
 	public void faireUnTirage() {
 
