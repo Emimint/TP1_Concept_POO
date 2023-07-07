@@ -31,11 +31,6 @@ public abstract class Casino implements Comparable<Casino>, ImpotsFonciers {
 	public Casino(Casino autre) {
 		this(autre.nom, autre.getMaxJoueurs());
 		this.capital = autre.capital;
-
-		if (autre.getJeu() != null)
-			this.jeu = autre.jeu;
-		else
-			this.jeu = null;
 	}
 
 	public Casino(String nom, int maxJoueurs) {
@@ -66,7 +61,9 @@ public abstract class Casino implements Comparable<Casino>, ImpotsFonciers {
 						"Le joueur \"%s\" a rejoint le casino \"%s\". Il y a maintenant %d joueur(s) dans cette salle.\n",
 						nouveauJoueur.getNom(), nom, joueursPresents);
 				return true;
-			}
+			} else
+				System.out.printf("Le joueur \"%s\" n'a pas assez d'argent pour rentrer dans ce casino...\n",
+						nouveauJoueur.getNom());
 		} else
 			System.out.println("Ce casino est complet.\n");
 		return false;
@@ -82,7 +79,7 @@ public abstract class Casino implements Comparable<Casino>, ImpotsFonciers {
 	}
 
 	public void jouer(Joueur joueur, int mise) {
-		if (joueur.aDesSous(mise)) {
+		if (joueur.aUnCasino() && joueur.aDesSous(mise)) {
 			int gains = jeu.calculerGains(mise);
 			capital += -gains + mise;
 			System.out.printf("Le casino \"%s\" a un capital actuel de %d$.\n\n", getNom(), getCapital());
@@ -213,22 +210,7 @@ public abstract class Casino implements Comparable<Casino>, ImpotsFonciers {
 		Casino autre = (Casino) obj;
 
 		return this.nom.equalsIgnoreCase(autre.nom) && this.capital == autre.capital
-				&& this.joueurs.length == autre.joueurs.length && !this.jeu.equals(autre.jeu);
-
-///////Alternative code (previous):		
-//		if (!this.nom.equalsIgnoreCase(autre.nom)) {
-//			return false;
-//		}
-//		if (this.capital != autre.capital) {
-//			return false;
-//		}
-//		if (this.joueurs.length != autre.joueurs.length) {
-//			return false;
-//		}
-//		if (!this.jeu.equals(autre.jeu)) {
-//			return false;
-//		}
-//		return true;
+				&& this.joueurs.length == autre.joueurs.length;
 	}
 
 	public String getNom() {
