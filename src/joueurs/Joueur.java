@@ -26,7 +26,7 @@ public abstract class Joueur implements Comparable<Joueur> {
 		this();
 		this.capital = capital;
 		if (capital < 100000)
-			this.capital = +500;
+			this.capital = this.capital + 500;
 	}
 
 	public Joueur(Joueur autre) {

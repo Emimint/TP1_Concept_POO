@@ -20,7 +20,7 @@ public final class PileOuFace extends JeuSimple {
 
 		String resultatJoueur = choixJoueur == 1 ? "Pile" : "Face";
 
-		System.out.printf("Vous avez misé %d$.\n\n" + "Vous avez choisi \"%s\".\n\n" + "Le croupier joue: \"%s\".\n\n",
+		System.out.printf("Vous misez %d$.\n\n" + "Vous choisissez \"%s\".\n\n" + "Le croupier a joué: \"%s\".\n\n",
 				mise, resultatJoueur, resultat);
 
 		if (resultat == resultatJoueur) {

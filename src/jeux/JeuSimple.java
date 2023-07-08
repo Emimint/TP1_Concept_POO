@@ -57,7 +57,7 @@ public class JeuSimple extends Jeu {
 		gains = (int) (numerosTrouves > 0 ? mise * numerosTrouves * ratio : 0);
 		gainsReels = gains - mise;
 
-		System.out.printf("\nTotal des gains: %d$ (Gains: %d$ - Mise: %d$), car vous avez trouve %d numéro(s).\n",
+		System.out.printf("\nTotal des gains: %d$ (Gains: %d$ - Mise: %d$), car vous avez trouvé %d numéro(s).\n",
 				gainsReels, gains, mise, numerosTrouves);
 
 		return gains;
@@ -130,7 +130,7 @@ public class JeuSimple extends Jeu {
 		return "Jeu [" + getNom() + "]:\n"
 				+ String.format("Dans ce jeu, choississez un chiffre entre 1 et %d.\n", champResultat)
 				+ String.format("Le croupier fait %d tirages.\n", nbrResultats)
-				+ "Gains: vous gagnez la moitie de votre mise autant de fois que vous trouvez votre numero au tirage.";
+				+ "Gains: vous gagnez la moitié de votre mise autant de fois que vous trouvez votre numero au tirage.";
 	}
 
 	public boolean equals(Object obj) {

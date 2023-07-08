@@ -5,9 +5,16 @@ import joueurs.JoueurPauvre;
 import joueurs.JoueurRiche;
 
 import jeux.Jeu;
-import jeux.PileOuFace;
+import jeux.JeuSimple;
 import jeux.LotoQuebec;
+import jeux.PileOuFace;
 import jeux.Roulette;
+
+/**********************************************
+ *              /!\ NOTICE /!\
+ *    By default, all casinos starts with a
+ *    PileOuFace game (can be changed later)
+ **********************************************/
 
 public abstract class Casino implements Comparable<Casino>, ImpotsFonciers {
 

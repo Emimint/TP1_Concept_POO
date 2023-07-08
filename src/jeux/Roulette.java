@@ -41,7 +41,6 @@ public final class Roulette extends Jeu {
 	private String strCouleur;
 	private int resultatChiffre;
 	private ArrayList<Object> resultatDuJoueur;
-	
 
 	public void faireUnTirage() {
 
@@ -379,44 +378,47 @@ public final class Roulette extends Jeu {
 
 	public void afficherDetailsGains() {
 
-		String commentaire = "\n\nTable des gains\n\n" + "==================\n" + "I) Paris internes: \n"
-				+ "==================\n\n" + "1) mise simple (inclus le 0) ==> 36 fois la mise\n\n"
-				+ "2) mise \"a cheval\" (exclus le 0): mise sur 2 chiffres adjacents ==> 17 fois la mise\n"
+		String commentaire = "\n.:*~*:._.:*~*:._.:*~*\n\n   Table des gains\n\n.:*~*:._.:*~*:._.:*~*\n\n\n"
+				+ "==================\n" + "I) Paris internes: \n" + "==================\n\n"
+				+ "1) mise simple (inclus le 0) ==> 36 fois la mise.\n\n"
+				+ "2) mise \"à cheval\" (exclus le 0): mise sur 2 chiffres adjacents ==> 17 fois la mise.\n\n"
 				+ "3) mise \"transversale\" : Trios de chiffres: 1 à 3, 4 à 6, 7 à 9, ect... "
-				+ "mise sur 3 chiffres adjacents ==> 11 fois la mise\n\n"
-				+ "4) mise \"carre\" : mise sur 4 chiffres adjacents ==> 8 fois la mise\n\n"
-				+ "5) mise \"sizain\" : mise sur 6 chiffres adjacents ==> 5 fois la mise\n\n\n"
-				+ "II) Paris voisins: \n" + "==================\n\n"
-				+ "Se base sur l'ordre des chiffres de la roue du jeu de roulette:\n\n" + "1) mise \"sur un tiers\": \n"
-				+ "-----------------------\n\n" + "On mise sur un chiffre d'un tier de la roue et de ses voisins. "
-				+ "Dependemment du tiers, on peut avoir different gains:\n\n"
+				+ "mise sur 3 chiffres adjacents ==> 11 fois la mise.\n\n"
+				+ "4) mise \"carré\" : mise sur 4 chiffres adjacents ==> 8 fois la mise.\n\n"
+				+ "5) mise \"sizain\" : mise sur 6 chiffres adjacents ==> 5 fois la mise.\n\n\n"
+				+ "==================\n" + "II) Paris voisins: \n" + "==================\n\n"
+				+ "Se base sur l'ordre des chiffres de la roue du jeu de roulette.\n\n" + "1) mise \"sur un tiers\": \n"
+				+ "-----------------------\n\n" + "On mise sur un chiffre d'un tiers de la roue et de ses voisins. "
+				+ "Dépendamment du tiers, on peut avoir different gains.\n\n"
 				+ "Les tiers misés sont : *1* les voisins du zéro (17 numéros), "
 				+ "*2* les tiers du cylindre (12 chiffres) et *3* les orphelins (8 chiffres).\n\n"
 				+ "1) les voisins du zéro : \"9 jetons ou multiples de 9 sont misés. 2 jetons "
-				+ "sont placés sur la transversale 0, 2, 3 ; 1 sur le cheval 4/7 ; 1 sur 12/15 ;\n"
+				+ "sont placés sur la transversale 0, 2, 3 ; 1 sur le cheval 4/7 ; 1 sur 12/15 ; "
 				+ "1 sur 18/21 ; 1 sur 19/22 ; 2 sur le carré 25/26/28/29 et 1 sur 32/35.\"\n\n"
 				+ "2) les tiers du cylindre : \"6 jetons ou multiples de 6 sont misés. "
 				+ "1 jeton est placé sur chacun des chevaux suivants : 5/8 ; 10/11 ; 13/16 ; 23/24 ; 27/30 ; 33/36.\"\n\n"
 				+ "3) les orphelins : \"5 jetons ou multiples de 5 sont misés. 1 jeton est placé directement sur le 1 "
 				+ "et 1 jeton sur chacun des chevaux suivants : 6/9 ; 14/17; 17/20 et 31/34.\"\n\n"
 				+ "2) mise sur les voisins: \n" + "------------------------\n\n"
-				+ "On mise 5 jetons sur un numero et ses 2 voisins adjacents ==> 35 fois la mise divisée par 5.\n\n\n"
-				+ "III) Paris externes: \n" + "====================\n\n"
-				+ "1) mise sur \"rouge\" ou \"noir\" ==> 1 fois la mise\n\n"
-				+ "2) mise sur \"pair\" ou \"impair\" ==> 1 fois la mise\n\n"
-				+ "3) mise sur moitie de cylindre ==> 1 fois la mise - première moitié : de 1 à 18 - deuxième moitié : de 19 à 36\n\n"
-				+ "4) mise sur les douzaines ==> 2 fois la mise - premier tiers : 1 à 12 - deuxième tiers : 13 à 24 - troisième tiers : 25 à 36 \n\n"
-				+ "2) mise sur les colonnes ==> 2 fois la mise -  première colonne : {1, 4, 7, 10, 13, 16, 19, 22, 25, 28, 31, 34} "
+				+ "On mise 5 jetons sur un numéro et ses 2 voisins adjacents ==> 35 fois la mise divisée par 5.\n\n\n"
+				+ "====================\n" + "III) Paris externes: \n" + "====================\n\n"
+				+ "1) mise sur \"rouge\" ou \"noir\" ==> 1 fois la mise.\n\n"
+				+ "2) mise sur \"pair\" ou \"impair\" ==> 1 fois la mise.\n\n"
+				+ "3) mise sur moitié de cylindre ==> 1 fois la mise (première moitié : de 1 à 18 - deuxième moitié : de 19 à 36).\n\n"
+				+ "4) mise sur les douzaines ==> 2 fois la mise (premier tiers : 1 à 12 - deuxième tiers : 13 à 24 - troisième tiers : 25 à 36).\n\n"
+				+ "2) mise sur les colonnes ==> 2 fois la mise (première colonne : {1, 4, 7, 10, 13, 16, 19, 22, 25, 28, 31, 34} "
 				+ "- deuxième colonne : {2, 5, 8, 11, 14, 17, 20, 23, 26, 29, 32, 35} "
-				+ "- troisième colonne : {3, 6, 9, 12, 15, 18, 21, 24, 27, 30, 33, 36}\n\n";
+				+ "- troisième colonne : {3, 6, 9, 12, 15, 18, 21, 24, 27, 30, 33, 36}).\n\n";
 
 		System.out.println(commentaire);
 	}
 
 	public String toString() {
-		return "\n\nRoulette Francaise:\n" + "===================\n"
-				+ "Choississez une combinaison de couleur (noir ou rouge) et/ou de chiffres (de 0 à 36). "
-				+ "Faites un choix de mises à placer sur le tapis (voir tableau des mises).\n"
+		return "\n\nRoulette Francaise:\n" + "===================\n\n"
+				+ "Dans ce jeu, le croupier lance une bille dans un cylindre de roulette fait d'une "
+				+ "combinaison de cases de couleurs chiffrées.\n"
+				+ "Choississez une combinaison de couleur (noir ou rouge) et/ou de chiffres (de 0 à 36) et "
+				+ "placez les jetons des mises correspondantes sur le tapis de jeu (voir tableau des mises).\n"
 				+ "Attention! Une fois que le croupier a lancé la bille, vous ne pouvez plus parier.\n";
 
 	}
