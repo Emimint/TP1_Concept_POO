@@ -28,11 +28,15 @@ public abstract class Jeu {
 
 	//// **** METHODES CONCRETES **** ////
 
-	public void afficherNumeros(int[] tab, String delimiteur) {
+	public int getRandom(int min, int max) {
+		return min + (int) (Math.random() * (max - min + 1));
+	}
+
+	public void afficherNumeros(int[] tab, String delimitateur) {
 		for (int i = 0; i < tab.length; i++) {
 			System.out.print(tab[i]);
 			if (i < tab.length - 1)
-				System.out.print(delimiteur);
+				System.out.print(delimitateur);
 		}
 	}
 
@@ -63,10 +67,6 @@ public abstract class Jeu {
 		}
 		Jeu autre = (Jeu) obj;
 		return nom.equals(autre.nom);
-	}
-
-	public int getRandom(int min, int max) {
-		return min + (int) (Math.random() * (max - min + 1));
 	}
 
 	public String getNom() {
